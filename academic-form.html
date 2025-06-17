@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>var mycode = prompt("Please enter your verification code:");
+    if (mycode !== "ACC-AUTH-2025") {
+        alert("Invalid code. Redirecting to homepage.");
+        window.location.href = "index.html";
+    } else {
+        console.log("Code verified successfully.");
+    }
+</script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACC Academy Registration | Arewa Crypto Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="icon" href="imgs/icon.png" type="image/png">
     <style>
         :root {
@@ -19,14 +30,14 @@
             --gradient-secondary: linear-gradient(135deg, var(--matrix-green), var(--hacker-green));
             --glow-effect: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px rgba(0, 255, 157, 0.3);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             scroll-behavior: smooth;
         }
-        
+
         body {
             background-color: var(--void-black);
             color: white;
@@ -34,7 +45,7 @@
             overflow-x: hidden;
             position: relative;
         }
-        
+
         /* ===== Cyberpunk Scanlines Overlay ===== */
         body::before {
             content: "";
@@ -43,7 +54,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px);
             background-size: 3px 3px;
@@ -51,7 +62,7 @@
             z-index: 9999;
             mix-blend-mode: overlay;
         }
-        
+
         /* ===== Quantum Grid Background ===== */
         .quantum-grid {
             position: fixed;
@@ -60,12 +71,12 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: 
+            background:
                 radial-gradient(circle at center, rgba(0, 255, 157, 0.05) 0%, transparent 70%),
                 linear-gradient(to bottom, transparent 95%, rgba(0, 255, 157, 0.1) 100%);
             background-size: 100% 100%;
         }
-        
+
         /* ===== Holographic Header ===== */
         header {
             position: fixed;
@@ -80,7 +91,7 @@
             border-bottom: 1px solid rgba(0, 255, 157, 0.2);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
-        
+
         .nav-container {
             display: flex;
             justify-content: space-between;
@@ -89,7 +100,7 @@
             margin: 0 auto;
             padding: 0 3rem;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
@@ -101,7 +112,7 @@
             letter-spacing: 2px;
             position: relative;
         }
-        
+
         .logo::after {
             content: '';
             position: absolute;
@@ -114,41 +125,48 @@
             transform-origin: right;
             transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }
-        
+
         .logo:hover::after {
             transform: scaleX(1);
             transform-origin: left;
         }
-        
+
         .logo span {
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
         }
-        
+
         .logo-img {
             width: 50px;
             margin-right: 15px;
             filter: drop-shadow(0 0 5px var(--neon-green));
             animation: pulse 2s infinite alternate;
         }
-        
+
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.05); opacity: 1; }
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
         }
-        
+
         .nav-links {
             display: flex;
             list-style: none;
         }
-        
+
         .nav-links li {
             margin-left: 2.5rem;
             position: relative;
         }
-        
+
         .nav-links a {
             color: white;
             text-decoration: none;
@@ -160,7 +178,7 @@
             position: relative;
             padding: 0.5rem 0;
         }
-        
+
         .nav-links a::before {
             content: '';
             position: absolute;
@@ -171,16 +189,16 @@
             background: var(--gradient-primary);
             transition: width 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }
-        
+
         .nav-links a:hover::before {
             width: 100%;
         }
-        
+
         .nav-links a:hover {
             color: var(--neon-green);
             text-shadow: var(--glow-effect);
         }
-        
+
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -190,7 +208,7 @@
             cursor: pointer;
             z-index: 10001;
         }
-        
+
         /* ===== Registration Section ===== */
         .registration {
             min-height: 100vh;
@@ -198,7 +216,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .registration::before {
             content: '';
             position: absolute;
@@ -206,28 +224,33 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0,255,157,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, transparent 70%);
             animation: rotate 60s linear infinite;
             z-index: -1;
         }
-        
+
         @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .registration-container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 3rem;
             position: relative;
         }
-        
+
         .registration-header {
             text-align: center;
             margin-bottom: 3rem;
         }
-        
+
         .section-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.8rem;
@@ -239,7 +262,7 @@
             position: relative;
             display: inline-block;
         }
-        
+
         .section-title::after {
             content: '';
             position: absolute;
@@ -251,7 +274,7 @@
             background: var(--gradient-primary);
             border-radius: 2px;
         }
-        
+
         .section-subtitle {
             font-size: 1.3rem;
             max-width: 700px;
@@ -259,7 +282,7 @@
             opacity: 0.9;
             line-height: 1.7;
         }
-        
+
         .registration-card {
             background: rgba(0, 20, 15, 0.5);
             border-radius: 15px;
@@ -269,7 +292,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .registration-card::before {
             content: '';
             position: absolute;
@@ -283,16 +306,16 @@
             opacity: 0;
             transition: opacity 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }
-        
+
         .registration-card:hover::before {
             opacity: 0.3;
         }
-        
+
         .form-group {
             margin-bottom: 2rem;
             position: relative;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 0.8rem;
@@ -301,7 +324,7 @@
             color: var(--neon-green);
             letter-spacing: 1px;
         }
-        
+
         .form-control {
             width: 100%;
             padding: 1rem 1.5rem;
@@ -313,13 +336,13 @@
             font-family: 'Rajdhani', sans-serif;
             transition: all 0.3s ease;
         }
-        
+
         .form-control:focus {
             outline: none;
             border-color: var(--neon-green);
             box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.2);
         }
-        
+
         select.form-control {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230fff9d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -327,20 +350,20 @@
             background-position: right 1.5rem center;
             background-size: 1em;
         }
-        
+
         .checkbox-group {
             display: flex;
             gap: 2rem;
             margin-top: 1rem;
         }
-        
+
         @media (max-width: 768px) {
             .checkbox-group {
                 flex-direction: column;
                 gap: 1rem;
             }
         }
-        
+
         .checkbox-label {
             display: flex;
             align-items: center;
@@ -348,7 +371,7 @@
             cursor: pointer;
             font-size: 1rem;
         }
-        
+
         .checkbox-label input[type="checkbox"] {
             width: 20px;
             height: 20px;
@@ -357,18 +380,18 @@
             border: 1px solid rgba(0, 255, 157, 0.3);
             border-radius: 4px;
         }
-        
+
         .social-handles {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .social-handle {
             position: relative;
         }
-        
+
         .social-handle i {
             position: absolute;
             left: 1.5rem;
@@ -376,16 +399,27 @@
             transform: translateY(-50%);
             font-size: 1.2rem;
         }
-        
+
         .social-handle .form-control {
             padding-left: 3.5rem;
         }
-        
-        .social-handle.twitter i { color: #1DA1F2; }
-        .social-handle.facebook i { color: #1877F2; }
-        .social-handle.telegram i { color: #0088CC; }
-        .social-handle.discord i { color: #5865F2; }
-        
+
+        .social-handle.twitter i {
+            color: #1DA1F2;
+        }
+
+        .social-handle.facebook i {
+            color: #1877F2;
+        }
+
+        .social-handle.telegram i {
+            color: #0088CC;
+        }
+
+        .social-handle.discord i {
+            color: #5865F2;
+        }
+
         .btn-group {
             display: flex;
             flex-wrap: wrap;
@@ -393,7 +427,7 @@
             margin: 3rem 0;
             justify-content: center;
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -411,18 +445,18 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        
+
         .btn-primary {
             background: var(--gradient-primary);
             color: var(--void-black);
             box-shadow: 0 5px 25px rgba(15, 255, 157, 0.5);
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 40px rgba(15, 255, 157, 0.7);
         }
-        
+
         .btn-primary::after {
             content: '';
             position: absolute;
@@ -435,40 +469,40 @@
             opacity: 0;
             transition: opacity 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }
-        
+
         .btn-primary:hover::after {
             opacity: 1;
         }
-        
+
         .btn-discord {
             background-color: #5865F2;
             color: white;
         }
-        
+
         .btn-discord:hover {
             background-color: #4752C4;
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
         }
-        
+
         .btn-telegram {
             background-color: #0088CC;
             color: white;
         }
-        
+
         .btn-telegram:hover {
             background-color: #0077B5;
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 136, 204, 0.4);
         }
-        
+
         .form-footer {
             text-align: center;
             margin-top: 2rem;
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
         }
-        
+
         /* ===== Footer ===== */
         footer {
             background: var(--void-black);
@@ -476,7 +510,7 @@
             position: relative;
             border-top: 1px solid rgba(0, 255, 157, 0.2);
         }
-        
+
         .footer-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -485,11 +519,11 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 4rem;
         }
-        
+
         .footer-col {
             position: relative;
         }
-        
+
         .footer-logo {
             font-family: 'Orbitron', sans-serif;
             font-size: 2rem;
@@ -499,26 +533,26 @@
             align-items: center;
             letter-spacing: 2px;
         }
-        
+
         .footer-logo span {
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
         }
-        
+
         .footer-about {
             opacity: 0.8;
             line-height: 1.8;
             margin-bottom: 2rem;
             font-size: 1.1rem;
         }
-        
+
         .footer-social {
             display: flex;
             gap: 1.5rem;
         }
-        
+
         .footer-social-link {
             width: 45px;
             height: 45px;
@@ -531,14 +565,14 @@
             color: var(--neon-green);
             transition: all 0.3s ease;
         }
-        
+
         .footer-social-link:hover {
             background: rgba(0, 255, 157, 0.2);
             color: white;
             transform: translateY(-5px);
             box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
         }
-        
+
         .footer-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
@@ -547,7 +581,7 @@
             letter-spacing: 1px;
             position: relative;
         }
-        
+
         .footer-title::after {
             content: '';
             position: absolute;
@@ -558,15 +592,15 @@
             background: var(--gradient-primary);
             border-radius: 2px;
         }
-        
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
             margin-bottom: 1.2rem;
         }
-        
+
         .footer-links a {
             color: white;
             text-decoration: none;
@@ -576,7 +610,7 @@
             position: relative;
             padding-left: 1.5rem;
         }
-        
+
         .footer-links a::before {
             content: '';
             position: absolute;
@@ -590,17 +624,17 @@
             opacity: 0;
             transition: all 0.3s ease;
         }
-        
+
         .footer-links a:hover {
             opacity: 1;
             color: var(--neon-green);
             padding-left: 2rem;
         }
-        
+
         .footer-links a:hover::before {
             opacity: 1;
         }
-        
+
         .footer-bottom {
             text-align: center;
             padding-top: 5rem;
@@ -609,7 +643,7 @@
             opacity: 0.7;
             font-size: 1rem;
         }
-        
+
         /* ===== Responsive Styles ===== */
         @media (max-width: 768px) {
             .nav-links {
@@ -627,59 +661,60 @@
                 z-index: 9999;
                 border-right: 1px solid var(--neon-green);
             }
-            
+
             .nav-links.active {
                 left: 0;
             }
-            
+
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             .section-title {
                 font-size: 2.2rem;
             }
-            
+
             .registration {
                 padding: 8rem 0 3rem;
             }
-            
+
             .registration-card {
                 padding: 2rem;
             }
         }
-        
+
         @media (max-width: 576px) {
             .nav-container {
                 padding: 0 1.5rem;
             }
-            
+
             .registration-container {
                 padding: 0 1.5rem;
             }
-            
+
             .section-title {
                 font-size: 1.8rem;
             }
-            
+
             .section-subtitle {
                 font-size: 1.1rem;
             }
-            
+
             .btn-group {
                 flex-direction: column;
             }
-            
+
             .btn {
                 width: 100%;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Quantum Grid Background -->
     <div class="quantum-grid"></div>
-    
+
     <!-- Header -->
     <header>
         <div class="nav-container">
@@ -687,11 +722,11 @@
                 <img src="imgs/icon.png" alt="ACC Logo" class="logo-img">
                 <span>A.</span>C.C <span></span>
             </a>
-            
+
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
-            
+
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html#home">HOME</a></li>
                 <li><a href="index.html#mission">MISSION</a></li>
@@ -702,15 +737,16 @@
             </ul>
         </div>
     </header>
-    
+
     <!-- Registration Section -->
     <section class="registration">
         <div class="registration-container">
             <div class="registration-header">
                 <h2 class="section-title">ACC ACADEMY REGISTRATION</h2>
-                <p class="section-subtitle">Join our Web3 education program and kickstart your journey into blockchain technology</p>
+                <p class="section-subtitle">Join our Web3 education program and kickstart your journey into blockchain
+                    technology</p>
             </div>
-            
+
             <div class="registration-card">
                 <form id="academyForm">
                     <!-- Email Address -->
@@ -718,7 +754,7 @@
                         <label for="email">EMAIL ADDRESS *</label>
                         <input type="email" id="email" class="form-control" required placeholder="your@email.com">
                     </div>
-                    
+
                     <!-- State of Residence -->
                     <div class="form-group">
                         <label for="state">STATE OF RESIDENCE *</label>
@@ -763,7 +799,7 @@
                             <option value="Zamfara">Zamfara</option>
                         </select>
                     </div>
-                    
+
                     <!-- Preferred Course -->
                     <div class="form-group">
                         <label for="course">PREFERRED COURSE *</label>
@@ -779,22 +815,22 @@
                             <option value="course8">Course 8: Blockchain Security</option>
                         </select>
                     </div>
-                    
+
                     <!-- Device Availability -->
                     <div class="form-group">
                         <label>DEVICE AVAILABILITY *</label>
                         <div class="checkbox-group">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="device" value="android" required> 
+                                <input type="checkbox" name="device" value="android" required>
                                 Android Device
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="device" value="pc"> 
+                                <input type="checkbox" name="device" value="pc">
                                 PC/Laptop
                             </label>
                         </div>
                     </div>
-                    
+
                     <!-- Social Handles -->
                     <div class="form-group">
                         <label>SOCIAL HANDLES</label>
@@ -817,13 +853,13 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- WhatsApp Number -->
                     <div class="form-group">
                         <label for="whatsapp">WHATSAPP NUMBER *</label>
                         <input type="tel" id="whatsapp" class="form-control" required placeholder="+2348012345678">
                     </div>
-                    
+
                     <!-- ACC Handles Buttons -->
                     <div class="btn-group">
                         <a href="https://t.me/acccommunitychannel" target="_blank" class="btn btn-telegram">
@@ -836,14 +872,14 @@
                             <i class="fab fa-twitter"></i> Follow on X
                         </a>
                     </div>
-                    
+
                     <!-- Submit Button -->
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">
                             <i class="fas fa-paper-plane"></i> SUBMIT APPLICATION
                         </button>
                     </div>
-                    
+
                     <div class="form-footer">
                         <p>We'll contact you via WhatsApp after reviewing your application</p>
                     </div>
@@ -851,7 +887,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -860,15 +896,19 @@
                     <span>A</span>CC
                 </div>
                 <p class="footer-about">
-                    The Arewa Crypto Community is empowering Northern Nigeria through blockchain education and innovation, creating opportunities in the Web3 economy.
+                    The Arewa Crypto Community is empowering Northern Nigeria through blockchain education and
+                    innovation, creating opportunities in the Web3 economy.
                 </p>
                 <div class="footer-social">
-                    <a href="https://discord.gg/XhRHPaXB" target="_blank" class="footer-social-link"><i class="fab fa-discord"></i></a>
-                    <a href="https://t.me/acccommunitychannel" target="_blank" class="footer-social-link"><i class="fab fa-telegram"></i></a>
-                    <a href="https://x.com/acc_community" target="_blank" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://discord.gg/XhRHPaXB" target="_blank" class="footer-social-link"><i
+                            class="fab fa-discord"></i></a>
+                    <a href="https://t.me/acccommunitychannel" target="_blank" class="footer-social-link"><i
+                            class="fab fa-telegram"></i></a>
+                    <a href="https://x.com/acc_community" target="_blank" class="footer-social-link"><i
+                            class="fab fa-twitter"></i></a>
                 </div>
             </div>
-            
+
             <div class="footer-col">
                 <h3 class="footer-title">QUICK LINKS</h3>
                 <ul class="footer-links">
@@ -879,7 +919,7 @@
                     <li><a href="index.html#join">Join Us</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col">
                 <h3 class="footer-title">RESOURCES</h3>
                 <ul class="footer-links">
@@ -887,7 +927,7 @@
                     <li><a href="registration.html">ACC Academy</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col">
                 <h3 class="footer-title">CONTACT US</h3>
                 <ul class="footer-links">
@@ -897,39 +937,39 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <p>&copy; 2023 AREWA CRYPTO COMMUNITY. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
-    
+
     <script>
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
-        
+
         // Form submission
-        document.getElementById('academyForm').addEventListener('submit', function(e) {
+        document.getElementById('academyForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Validate form
             const email = document.getElementById('email').value;
             const state = document.getElementById('state').value;
             const course = document.getElementById('course').value;
             const devices = document.querySelectorAll('input[name="device"]:checked');
             const whatsapp = document.getElementById('whatsapp').value;
-            
+
             if (!email || !state || !course || devices.length === 0 || !whatsapp) {
                 alert('Please fill all required fields');
                 return;
             }
-            
+
             // Collect form data
             const formData = {
                 email,
@@ -942,21 +982,22 @@
                 discord: document.querySelector('.social-handle.discord input').value,
                 whatsapp
             };
-            
+
             // Here you would typically send the data to your server
             console.log('Form submitted:', formData);
-            
+
             // Show success message
             alert('Application submitted successfully! We will contact you via WhatsApp soon.');
             this.reset();
         });
 
         // Add country code helper for WhatsApp field
-        document.getElementById('whatsapp').addEventListener('focus', function() {
+        document.getElementById('whatsapp').addEventListener('focus', function () {
             if (!this.value.startsWith('+')) {
                 this.value = '+234';
             }
         });
     </script>
 </body>
+
 </html>
