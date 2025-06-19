@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-// Function to set cookie
-function setCookie(name, value, days) {
-    const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
-
-// Function to get cookie
-function getCookie(name) {
-    const cookieName = name + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const cookieArray = decodedCookie.split(';');
-    for(let i = 0; i < cookieArray.length; i++) {
-        let cookie = cookieArray[i];
-        while (cookie.charAt(0) === ' ') {
-            cookie = cookie.substring(1);
-        }
-        if (cookie.indexOf(cookieName) === 0) {
-            return cookie.substring(cookieName.length, cookie.length);
-        }
+    // Function to set cookie
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
     }
-    return "";
-}
 
-// Function to delete cookie
-function deleteCookie(name) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-}
+    // Function to get cookie
+    function getCookie(name) {
+        const cookieName = name + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const cookieArray = decodedCookie.split(';');
+        for (let i = 0; i < cookieArray.length; i++) {
+            let cookie = cookieArray[i];
+            while (cookie.charAt(0) === ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
 
-// Main verification logic
-if (!getCookie('PAGEACCESS')) {
-    const mycode = prompt("This Page is Under Development. Please enter your verification code:");
-    
-    if (mycode === null || mycode.trim() === "") {
-        console.log(mycode === null ? "User cancelled the prompt." : "No code entered.");
-        deleteCookie('PAGEACCESS');
-        alert("Access denied. Redirecting to homepage.");
-        window.location.href = "index.html";
-    } 
-    else {
-        const trimmedCode = mycode.trim().toUpperCase();
-        
-        if (trimmedCode !== "ACC-AUTH-2025") {
-            console.log("Invalid code entered: " + trimmedCode);
+    // Function to delete cookie
+    function deleteCookie(name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
+
+    // Main verification logic
+    if (!getCookie('PAGEACCESS')) {
+        const mycode = prompt("This Page is Under Development. Please enter your verification code:");
+
+        if (mycode === null || mycode.trim() === "") {
+            console.log(mycode === null ? "User cancelled the prompt." : "No code entered.");
             deleteCookie('PAGEACCESS');
-            alert("Invalid code. Redirecting to homepage.");
+            alert("Access denied. Redirecting to homepage.");
             window.location.href = "index.html";
-        } 
+        }
         else {
-            console.log("Code verified successfully.");
-            setCookie('PAGEACCESS', 'true', 1); // Store for 1 day
+            const trimmedCode = mycode.trim().toUpperCase();
+
+            if (trimmedCode !== "ACC-AUTH-2025") {
+                console.log("Invalid code entered: " + trimmedCode);
+                deleteCookie('PAGEACCESS');
+                alert("Invalid code. Redirecting to homepage.");
+                window.location.href = "index.html";
+            }
+            else {
+                console.log("Code verified successfully.");
+                setCookie('PAGEACCESS', 'true', 1); // Store for 1 day
+            }
         }
     }
-}
 </script>
 
 <head>
@@ -755,7 +755,125 @@ if (!getCookie('PAGEACCESS')) {
 
             .btn {
                 width: 100%;
+                font-size: small;
             }
+        }
+
+        .terms-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 8, 8, 0.9);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .terms-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .terms-container {
+            background: var(--void-black);
+            border: 1px solid var(--neon-green);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 0 30px rgba(15, 255, 157, 0.3);
+            overflow-y: auto;
+        }
+
+        .terms-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--neon-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .terms-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-green);
+            text-align: center;
+        }
+
+        .terms-content {
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .terms-content h3 {
+            color: var(--neon-green);
+            margin-top: 1.5rem;
+        }
+
+        .terms-content p {
+            margin-bottom: 1rem;
+        }
+
+        .terms-accept-btn {
+            display: block;
+            margin: 0 auto;
+            padding: 0.8rem 2rem;
+            background: var(--gradient-primary);
+            color: var(--void-black);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .terms-accept-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(15, 255, 157, 0.4);
+        }
+
+        /* Terms Checkbox Styles */
+        .terms-checkbox {
+            margin: 2rem 0;
+        }
+
+        .terms-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .terms-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            accent-color: var(--neon-green);
+        }
+
+        .terms-link {
+            color: var(--neon-green);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .terms-link:hover {
+            text-shadow: 0 0 10px var(--neon-green);
         }
     </style>
 </head>
@@ -800,13 +918,13 @@ if (!getCookie('PAGEACCESS')) {
                 <form id="academyForm">
                     <!-- Email Address -->
                     <div class="form-group">
-                        <label for="email">EMAIL ADDRESS *</label>
+                        <label for="email">EMAIL ADDRESS <b style="color: red;">*</b></label>
                         <input type="email" id="email" class="form-control" required placeholder="your@email.com">
                     </div>
 
                     <!-- State of Residence -->
                     <div class="form-group">
-                        <label for="state">STATE OF RESIDENCE *</label>
+                        <label for="state">STATE OF RESIDENCE <b style="color: red;">*</b></label>
                         <select id="state" class="form-control" required>
                             <option value="" disabled selected>Select your state</option>
                             <option value="Abia">Abia</option>
@@ -850,35 +968,35 @@ if (!getCookie('PAGEACCESS')) {
                         </select>
                     </div>
 
+                    <!-- Device Availability -->
+                    <div class="form-group">
+                        <label>DEVICE AVAILABILITY <b style="color: red;">*</b></label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="device" value="android" onclick=" checkdevices()" required>
+                                Android Device
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="device" value="pc" onclick=" checkdevices()">
+                                PC/Laptop
+                            </label>
+                        </div>
+                    </div>
+
                     <!-- Preferred Course -->
                     <div class="form-group">
-                        <label for="course">PREFERRED COURSE *</label>
+                        <label for="course">PREFERRED COURSE <b style="color: red;">*</b></label>
                         <select id="course" class="form-control" required>
-                            <option value="" disabled selected>Select your course</option>
-                            <option value="course1">Course 1: Introduction to Blockchain</option>
+                            <option value="" disabled selected>Select Device before Course</option>
+                            <!-- <option value="course1">Course 1: Introduction to Blockchain</option>
                             <option value="course2">Course 2: Bitcoin Fundamentals</option>
                             <option value="course3">Course 3: Ethereum & Smart Contracts</option>
                             <option value="course4">Course 4: DeFi Mastery</option>
                             <option value="course5">Course 5: NFT Creation & Trading</option>
                             <option value="course6">Course 6: Crypto Trading Strategies</option>
                             <option value="course7">Course 7: Web3 Development Basics</option>
-                            <option value="course8">Course 8: Blockchain Security</option>
+                            <option value="course8">Course 8: Blockchain Security</option> -->
                         </select>
-                    </div>
-
-                    <!-- Device Availability -->
-                    <div class="form-group">
-                        <label>DEVICE AVAILABILITY *</label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="device" value="android" required>
-                                Android Device
-                            </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="device" value="pc">
-                                PC/Laptop
-                            </label>
-                        </div>
                     </div>
 
                     <!-- Social Handles -->
@@ -886,8 +1004,12 @@ if (!getCookie('PAGEACCESS')) {
                         <label>SOCIAL HANDLES</label>
                         <div class="social-handles">
                             <div class="social-handle twitter">
-                                <i class="fab fa-twitter"></i>
-                                <input type="text" class="form-control" placeholder="Twitter username">
+                                <i class="fa"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                                    </svg></i> <input type="text" class="form-control" placeholder="Twitter username"
+                                    required>
                             </div>
                             <div class="social-handle facebook">
                                 <i class="fab fa-facebook"></i>
@@ -895,11 +1017,11 @@ if (!getCookie('PAGEACCESS')) {
                             </div>
                             <div class="social-handle telegram">
                                 <i class="fab fa-telegram"></i>
-                                <input type="text" class="form-control" placeholder="Telegram username">
+                                <input type="text" class="form-control" placeholder="Telegram username" required>
                             </div>
                             <div class="social-handle discord">
                                 <i class="fab fa-discord"></i>
-                                <input type="text" class="form-control" placeholder="Discord username">
+                                <input type="text" class="form-control" placeholder="Discord username" required>
                             </div>
                         </div>
                     </div>
@@ -908,6 +1030,74 @@ if (!getCookie('PAGEACCESS')) {
                     <div class="form-group">
                         <label for="whatsapp">WHATSAPP NUMBER *</label>
                         <input type="tel" id="whatsapp" class="form-control" required placeholder="+2348012345678">
+                    </div>
+                    <div class="terms-checkbox">
+                        <label class="terms-label">
+                            <input type="checkbox" id="termsCheckbox" required>
+                            I agree to the <span class="terms-link" id="termsLink">Terms and Conditions</span>
+                        </label>
+                    </div>
+
+                    <!-- Terms and Conditions Modal -->
+                    <div class="terms-modal" id="termsModal">
+                        <div class="terms-container">
+                            <button class="terms-close" id="termsClose">&times;</button>
+                            <h2 class="terms-title">TERMS AND CONDITIONS</h2>
+                            <div class="terms-content">
+                                <h3>Acceptance of Terms</h3>
+                                <p>By joining the ACC Academy, you agree to be bound by these Terms and Conditions. If
+                                    you do not agree with any part of these terms, you must not participate in the
+                                    program.</p>
+
+                                <h3>Introduction</h3>
+                                <p>All admitted students are expected to read and abide by the following rules and
+                                    regulations
+                                    throughout the duration of the program</p>
+
+                                <h3>1. Attendance and Punctuality</h3>
+                                <p>• Students are required to attend all classes regularly.
+                                    <br>
+                                    • A minimum of 70% attendance is required to remain enrolled in the program. Falling
+                                    below this threshold will result in disqualification and dismissal.
+                                    <br>
+                                    • Students must maintain at least 60% punctuality (i.e., being on time). Consistent
+                                    lateness below this threshold will also lead to disqualification and dismissal.
+                                    <br>
+                                    • Notify the management in advance if you anticipate being late or absent for any
+                                    reason</p>
+
+                                <h3>2. Respect and Behavior</h3>
+                                <p>• Show respect to teachers, fellow students, and all ACC Learn property.
+                                    <br>
+                                    • Bullying, teasing, or the use of inappropriate language is strictly prohibited.
+                                    <br>
+                                    • Listen attentively when others are speaking.
+                                    <br>
+                                    • Raise your hand to speak or ask questions.
+                                    <br>
+                                    • Actively engage in class discussions, group work, and learning activities.
+                                    <br>
+                                    • Complete all assessments and projects on time and with diligence.
+                                </p>
+
+                                <h3>3. Academic Integrity</h3>
+                                <p>• Cheating, plagiarism, and unauthorized copying are strictly forbidden.
+                                    <br>
+                                    • Submit only your own original work, unless the task is a designated group project.
+                                    <br>
+                                    • Properly cite any sources or references used in assignments or projects.
+                                    <br>
+                                    • Include relevant hashtags such as #ACC, #ACC_Learn, #Your_Teacher, etc., on all
+                                    assessments and project submissions, as instructed</p>
+                            </div>
+                            <button class="terms-accept-btn" id="termsAccept">I Accept</button>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT</button>
                     </div>
 
                     <!-- ACC Handles Buttons -->
@@ -923,12 +1113,6 @@ if (!getCookie('PAGEACCESS')) {
                         </a>
                     </div>
 
-                    <!-- Submit Button -->
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">
-                            <i class="fas fa-paper-plane"></i> SUBMIT APPLICATION
-                        </button>
-                    </div>
 
                     <div class="form-footer">
                         <p>We'll contact you via WhatsApp after reviewing your application</p>
@@ -989,11 +1173,60 @@ if (!getCookie('PAGEACCESS')) {
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2023 AREWA CRYPTO COMMUNITY. ALL RIGHTS RESERVED.</p>
+            <p>&copy; 2025 AREWA CRYPTO COMMUNITY. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
 
     <script>
+
+        function checkdevices() {
+            const devices = document.querySelectorAll('input[name="device"]:checked');
+            const selectedDevices = Array.from(devices).map(d => d.value);
+            console.log('Selected devices:', selectedDevices);
+            if (selectedDevices.includes('android') && selectedDevices.includes('pc')) {
+                document.getElementById('course').innerHTML = `
+                    <option value="" disabled selected>Select your course</option>
+                    <option value="course1">Basics in Artificial Intelligence (AI)</option>
+                    <option value="course2">Token & NFT Development</option>
+                    <option value="course3">Telegram Mini-App Development</option>
+                    <option value="course4">Graphics Design</option>
+                    <option value="course5">Content Creation</option>
+                    <option value="course6">Web3 Job Skills</option>
+                    <option value="course7">Airdrop Hunting</option>
+                    <option value="course8">Crypto Trading</option>
+                `;
+            }
+            else if (selectedDevices.includes('android')) {
+                document.getElementById('course').innerHTML = `
+                    <option value="" disabled selected>Select your course</option>
+                    <option value="course1">Basics in Artificial Intelligence (AI)</option>
+                    <option value="course4">Graphics Design</option>
+                    <option value="course5">Content Creation</option>
+                    <option value="course6">Web3 Job Skills</option>
+                    <option value="course7">Airdrop Hunting</option>
+                    <option value="course8">Crypto Trading</option>
+                `;
+            }
+            else if (selectedDevices.includes('pc')) {
+                document.getElementById('course').innerHTML = `
+                    <option value="" disabled selected>Select your course</option>
+                    <option value="course1">Basics in Artificial Intelligence (AI)</option>
+                    <option value="course2">Token & NFT Development</option>
+                    <option value="course3">Telegram Mini-App Development</option>
+                    <option value="course4">Graphics Design</option>
+                    <option value="course5">Content Creation</option>
+                    <option value="course6">Web3 Job Skills</option>
+                    <option value="course7">Airdrop Hunting</option>
+                    <option value="course8">Crypto Trading</option>
+                `;
+            }
+            else {
+                document.getElementById('course').innerHTML = `
+                    <option value="" disabled selected>Select Device before Course</option>
+                `;
+            }
+            return true;
+        }
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -1009,14 +1242,15 @@ if (!getCookie('PAGEACCESS')) {
             e.preventDefault();
 
             // Validate form
+            const termsCheckbox = document.getElementById('termsCheckbox');
             const email = document.getElementById('email').value;
             const state = document.getElementById('state').value;
             const course = document.getElementById('course').value;
             const devices = document.querySelectorAll('input[name="device"]:checked');
             const whatsapp = document.getElementById('whatsapp').value;
 
-            if (!email || !state || !course || devices.length === 0 || !whatsapp) {
-                alert('Please fill all required fields');
+            if (!email || !state || !course || devices.length === 0 || !whatsapp || !termsCheckbox.checked) {
+                alert('Please fill all required fields and accept the Terms and Conditions');
                 return;
             }
 
@@ -1027,7 +1261,7 @@ if (!getCookie('PAGEACCESS')) {
                 course,
                 devices: Array.from(devices).map(d => d.value),
                 twitter: document.querySelector('.social-handle.twitter input').value,
-                facebook: document.querySelector('.social-handle.facebook input').value,
+                facebook: document.querySelector('.social-handle.facebook input').value || '',
                 telegram: document.querySelector('.social-handle.telegram input').value,
                 discord: document.querySelector('.social-handle.discord input').value,
                 whatsapp
@@ -1047,6 +1281,59 @@ if (!getCookie('PAGEACCESS')) {
                 this.value = '+234';
             }
         });
+
+        // Terms and Conditions Modal Functionality
+        const termsModal = document.getElementById('termsModal');
+        const termsLink = document.getElementById('termsLink');
+        const termsClose = document.getElementById('termsClose');
+        const termsAccept = document.getElementById('termsAccept');
+        const termsCheckbox = document.getElementById('termsCheckbox');
+
+        // Open modal when terms link is clicked
+        termsLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            termsModal.classList.add('active');
+        });
+
+        // Close modal when X is clicked
+        termsClose.addEventListener('click', function () {
+            termsModal.classList.remove('active');
+        });
+
+        // Accept terms and close modal
+        termsAccept.addEventListener('click', function (e) {
+            termsModal.classList.remove('active');
+            termsCheckbox.checked = true;
+            e.preventDefault();
+        });
+
+        // Close modal when clicking outside
+        termsModal.addEventListener('click', function (e) {
+            if (e.target === termsModal) {
+                termsModal.classList.remove('active');
+            }
+        });
+
+        // Form validation
+        document.getElementById('academyForm').addEventListener('submit', function (e) {
+            if (!termsCheckbox.checked) {
+                e.preventDefault();
+                alert('You must accept the Terms and Conditions to submit your application');
+                termsLink.scrollIntoView({ behavior: 'smooth' });
+                termsLink.style.animation = 'glow 0.5s 3';
+            }
+        });
+
+        // Add glow animation for emphasis
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes glow {
+                0% { text-shadow: none; }
+                50% { text-shadow: 0 0 10px var(--neon-green); }
+                100% { text-shadow: none; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 
