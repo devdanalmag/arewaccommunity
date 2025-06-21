@@ -61,7 +61,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACC Academy Registration | Arewa Crypto Community</title>
+    <title>ACC Learn Program Registration | Arewa Crypto Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
@@ -875,6 +875,115 @@
         .terms-link:hover {
             text-shadow: 0 0 10px var(--neon-green);
         }
+
+        /* Social Connect Section */
+        .social-connect {
+            background: rgba(0, 20, 15, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .social-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-header i {
+            color: var(--neon-green);
+            font-size: 1.5rem;
+        }
+
+        .social-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin: 0;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .social-subtext {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            gap: 0.7rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .btn-telegram {
+            background-color: #0088cc;
+            color: white;
+        }
+
+        .btn-telegram:hover {
+            background-color: #0077b5;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+        }
+
+        .btn-discord {
+            background-color: #5865F2;
+            color: white;
+        }
+
+        .btn-discord:hover {
+            background-color: #4752C4;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        .btn-twitter {
+            background-color: #000;
+            color: white;
+        }
+
+        .btn-twitter:hover {
+            background-color: #222;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-twitter svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -909,7 +1018,7 @@
     <section class="registration">
         <div class="registration-container">
             <div class="registration-header">
-                <h2 class="section-title">ACC ACADEMY REGISTRATION</h2>
+                <h2 class="section-title">ACC LEARN PROGRAM</h2>
                 <p class="section-subtitle">Join our Web3 education program and kickstart your journey into blockchain
                     technology</p>
             </div>
@@ -974,7 +1083,7 @@
                         <div class="checkbox-group">
                             <label class="checkbox-label">
                                 <input type="checkbox" name="device" value="android" onclick=" checkdevices()" required>
-                                Android Device
+                                Mobile
                             </label>
                             <label class="checkbox-label">
                                 <input type="checkbox" name="device" value="pc" onclick=" checkdevices()">
@@ -1028,7 +1137,7 @@
 
                     <!-- WhatsApp Number -->
                     <div class="form-group">
-                        <label for="whatsapp">WHATSAPP NUMBER *</label>
+                        <label for="whatsapp">WHATSAPP NUMBER <b style="color: red;">*</b></label>
                         <input type="tel" id="whatsapp" class="form-control" required placeholder="+2348012345678">
                     </div>
                     <div class="terms-checkbox">
@@ -1045,7 +1154,8 @@
                             <h2 class="terms-title">TERMS AND CONDITIONS</h2>
                             <div class="terms-content">
                                 <h3>Acceptance of Terms</h3>
-                                <p>By joining the ACC Academy, you agree to be bound by these Terms and Conditions. If
+                                <p>By joining the ACC Learn Program, you agree to be bound by these Terms and
+                                    Conditions. If
                                     you do not agree with any part of these terms, you must not participate in the
                                     program.</p>
 
@@ -1064,7 +1174,8 @@
                                     lateness below this threshold will also lead to disqualification and dismissal.
                                     <br>
                                     • Notify the management in advance if you anticipate being late or absent for any
-                                    reason</p>
+                                    reason
+                                </p>
 
                                 <h3>2. Respect and Behavior</h3>
                                 <p>• Show respect to teachers, fellow students, and all ACC Learn property.
@@ -1088,34 +1199,48 @@
                                     • Properly cite any sources or references used in assignments or projects.
                                     <br>
                                     • Include relevant hashtags such as #ACC, #ACC_Learn, #Your_Teacher, etc., on all
-                                    assessments and project submissions, as instructed</p>
+                                    assessments and project submissions, as instructed
+                                </p>
                             </div>
                             <button class="terms-accept-btn" id="termsAccept">I Accept</button>
                         </div>
                     </div>
+                    <!-- Social Media Links -->
+                    <div class="social-connect">
+                        <div class="social-header">
+                            <i class="fas fa-bell"></i>
+                            <h3>Stay Connected & Enable Notifications</h3>
+                        </div>
+                        <p class="social-subtext">Join our community channels to get the latest updates and
+                            announcements</p>
+
+                        <div class="btn-group">
+                            <a href="https://t.me/acccommunitychannel" target="_blank" class="btn btn-telegram">
+                                <i class="fab fa-telegram"></i> Telegram
+                            </a>
+                            <a href="https://discord.gg/XhRHPaXB" target="_blank" class="btn btn-discord">
+                                <i class="fab fa-discord"></i> Discord
+                            </a>
+                            <a href="https://x.com/acc_community" target="_blank" class="btn btn-twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                                </svg>
+                                Twitter/X
+                            </a>
+                        </div>
+                    </div>
+
 
                     <!-- Submit Button -->
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
                             <i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT</button>
                     </div>
 
-                    <!-- ACC Handles Buttons -->
-                    <div class="btn-group">
-                        <a href="https://t.me/acccommunitychannel" target="_blank" class="btn btn-telegram">
-                            <i class="fab fa-telegram"></i> Join Telegram
-                        </a>
-                        <a href="https://discord.gg/XhRHPaXB" target="_blank" class="btn btn-discord">
-                            <i class="fab fa-discord"></i> Join Discord
-                        </a>
-                        <a href="https://x.com/acc_community" target="_blank" class="btn btn-primary">
-                            <i class="fab fa-twitter"></i> Follow on X
-                        </a>
-                    </div>
-
-
                     <div class="form-footer">
-                        <p>We'll contact you via WhatsApp after reviewing your application</p>
+                        <p>We'll contact you via Email after reviewing your application</p>
                     </div>
                 </form>
             </div>
@@ -1158,7 +1283,7 @@
                 <h3 class="footer-title">RESOURCES</h3>
                 <ul class="footer-links">
                     <li><a href="pfp-maker.html">PFP Maker</a></li>
-                    <li><a href="#">ACC Academy</a></li>
+                    <li><a href="#">ACC Learn Program</a></li>
                 </ul>
             </div>
 
