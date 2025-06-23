@@ -21,10 +21,8 @@ export default async function handler(req, res) {
           <h2>New Application</h2>
           <p><b>Email:</b> ${email}</p>
           <p><b>State:</b> ${state}</p>
-          <p><b>Devices:</b> ${devices.join(', ')}</p>
           <p><b>Course:</b> ${course}</p>
           <p><b>WhatsApp:</b> ${whatsapp}</p>
-          <p><b>Socials:</b><br>${social.join('<br>')}</p>
         `,
       }),
     });
