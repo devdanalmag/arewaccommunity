@@ -1363,8 +1363,8 @@
         });
 
         // Form submission
-        document.getElementById('academyForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+        document.getElementById('academyForm').addEventListener('submit', async function (e) {
+            e.preventDefault(); 
 
             // Validate form
             const termsCheckbox = document.getElementById('termsCheckbox');
@@ -1392,11 +1392,32 @@
                 whatsapp
             };
 
+
+
+            // const devices = Array.from(document.querySelectorAll('input[name="device"]:checked')).map(el => el.value);
+
+            const social = Array.from(document.querySelectorAll(".social-handles input"))
+                .map(el => `${el.placeholder}: ${el.value}`);
+
+            const res = await fetch("/api/send-email.js", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, state, devices, course, social, whatsapp }),
+            });
+
+            const result = await res.json();
+            if (result.success) {
+                alert("🎉 Thank you! Your application has been submitted.");
+                document.getElementById("academyForm").reset();
+            } else {
+                alert("❌ Submission failed. Please try again later.");
+            }
+
             // Here you would typically send the data to your server
             console.log('Form submitted:', formData);
 
             // Show success message
-            alert('Application submitted successfully! We will contact you via WhatsApp soon.');
+            // alert('Application submitted successfully! We will contact you via WhatsApp soon.');
             this.reset();
         });
 
@@ -1440,24 +1461,24 @@
         });
 
         // Form validation
-        document.getElementById('academyForm').addEventListener('submit', function (e) {
-            if (!termsCheckbox.checked) {
-                e.preventDefault();
-                alert('You must accept the Terms and Conditions to submit your application');
-                termsLink.scrollIntoView({ behavior: 'smooth' });
-                termsLink.style.animation = 'glow 0.5s 3';
-            }
-        });
+        // document.getElementById('academyForm').addEventListener('submit', function (e) {
+        // if (!termsCheckbox.checked) {
+        // e.preventDefault();
+        // alert('You must accept the Terms and Conditions to submit your application');
+        // termsLink.scrollIntoView({ behavior: 'smooth' });
+        // termsLink.style.animation = 'glow 0.5s 3';
+        // }
+        // });
 
         // Add glow animation for emphasis
         const style = document.createElement('style');
         style.textContent = `
-            @keyframes glow {
-                0% { text-shadow: none; }
-                50% { text-shadow: 0 0 10px var(--neon-green); }
-                100% { text-shadow: none; }
-            }
-        `;
+    @keyframes glow {
+    0% { text-shadow: none; }
+    50% { text-shadow: 0 0 10px var(--neon-green); }
+    100% { text-shadow: none; }
+    }
+    `;
         document.head.appendChild(style);
     </script>
 </body>
