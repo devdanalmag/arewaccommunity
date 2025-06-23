@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        sender: { name: "ACC Learn Registration", email: "abdulldanalmag@gmail.com" }, // ← must be verified sender!
+        sender: { name: "ACC", email: "abdulldanalmag@gmail.com" }, // ← must be verified sender!
         to: [{ email: "devabdullmajeed@gmail.com" }],
         subject: "New Registration Submission",
         htmlContent: `
