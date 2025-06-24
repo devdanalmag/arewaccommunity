@@ -21,115 +21,122 @@ export default async function handler(req, res) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🚀 New ACC Learn Program Application</title>
+    <title>📝 New ACC Learn Program Application</title>
     <style>
         body {
-            font-family: 'Rajdhani', 'Arial', sans-serif;
-            background-color: #000908;
-            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333333;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
         .email-container {
             max-width: 600px;
-            margin: 0 auto;
-            background-color: #001a0f;
-            border: 1px solid #00ff9d;
-            border-radius: 15px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .header {
-            background: linear-gradient(135deg, #0fff9d, #00ffc8);
-            padding: 30px;
+            background-color: #0fff9d;
+            padding: 25px;
             text-align: center;
         }
         .header h1 {
             color: #000908;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Orbitron', 'Arial', sans-serif;
             margin: 0;
-            font-size: 28px;
+            font-size: 24px;
+            font-weight: 700;
             letter-spacing: 1px;
         }
         .content {
             padding: 30px;
         }
         .data-row {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed rgba(0, 255, 157, 0.3);
-        }
-        .data-row:last-child {
-            border-bottom: none;
+            margin-bottom: 18px;
+            display: flex;
         }
         .label {
             color: #0fff9d;
             font-weight: 600;
-            display: inline-block;
-            min-width: 120px;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
+            width: 140px;
+            flex-shrink: 0;
+            font-size: 15px;
+        }
+        .value {
+            color: #333333;
+            flex-grow: 1;
+            font-size: 15px;
         }
         .footer {
             text-align: center;
             padding: 20px;
-            background-color: rgba(0, 20, 15, 0.5);
+            background-color: #000908;
             font-size: 12px;
             color: rgba(255, 255, 255, 0.7);
         }
-        .highlight {
-            background-color: rgba(15, 255, 157, 0.1);
-            padding: 2px 5px;
-            border-radius: 3px;
+        .divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 25px 0;
+        }
+        .social-item {
+            margin-bottom: 6px;
         }
     </style>
 </head>
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>🛸 NEW ACC APPLICATION</h1>
+            <h1>NEW ACC LEARN APPLICATION</h1>
         </div>
         
         <div class="content">
             <div class="data-row">
-                <span class="label">Email:</span>
-                <span class="highlight">${email}</span>
+                <div class="label">Email:</div>
+                <div class="value">${email}</div>
             </div>
             
             <div class="data-row">
-                <span class="label">State:</span>
-                <span>${state}</span>
+                <div class="label">State:</div>
+                <div class="value">${state}</div>
             </div>
             
             <div class="data-row">
-                <span class="label">Devices:</span>
-                <span class="highlight">${Array.isArray(devices) ? devices.join(', ') : devices}</span>
+                <div class="label">Devices:</div>
+                <div class="value">${Array.isArray(devices) ? devices.join(', ') : devices}</div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="data-row">
+                <div class="label">Selected Course:</div>
+                <div class="value" style="font-weight:500;">${course}</div>
             </div>
             
             <div class="data-row">
-                <span class="label">Course:</span>
-                <span class="highlight">${course}</span>
+                <div class="label">WhatsApp:</div>
+                <div class="value">${whatsapp}</div>
             </div>
             
-            <div class="data-row">
-                <span class="label">WhatsApp:</span>
-                <span>${whatsapp}</span>
-            </div>
+            <div class="divider"></div>
             
-            <div class="data-row">
-                <span class="label">Socials:</span>
-                <div style="margin-top: 8px;">
+            <div class="data-row" style="align-items: flex-start;">
+                <div class="label">Social Profiles:</div>
+                <div class="value">
                     ${Array.isArray(social) ? 
-                      social.map(s => `<div>• ${s}</div>`).join('') : 
+                      social.map(s => `<div class="social-item">${s}</div>`).join('') : 
                       social}
                 </div>
             </div>
         </div>
         
         <div class="footer">
-            <p>🚀 ACC Learn Program | Empowering Northern Nigeria through Web3 Education</p>
-            <p>© ${new Date().getFullYear()} Arewa Crypto Community</p>
+            <p>Arewa Crypto Community - Web3 Education Initiative</p>
+            <p>© ${new Date().getFullYear()} ACC Learn Program</p>
         </div>
     </div>
 </body>
