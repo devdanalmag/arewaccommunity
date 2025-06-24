@@ -1371,7 +1371,7 @@
             const email = document.getElementById('email').value;
             const state = document.getElementById('state').value;
             const course = document.getElementById('course').value;
-            const devices = document.querySelectorAll('input[name="device"]:checked');
+            const devices = Array.from(document.querySelectorAll('input[name="device"]:checked')).map(el => el.value);
             const whatsapp = document.getElementById('whatsapp').value;
 
             if (!email || !state || !course || devices.length === 0 || !whatsapp || !termsCheckbox.checked) {
@@ -1394,7 +1394,6 @@
 
 
 
-            // const devices = Array.from(document.querySelectorAll('input[name="device"]:checked')).map(el => el.value);
 
             const social = Array.from(document.querySelectorAll(".social-handles input"))
                 .map(el => `${el.placeholder}: ${el.value}`);

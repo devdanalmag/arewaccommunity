@@ -24,7 +24,7 @@ export default async function handler(req, res) {
           <p><b>Devices:</b> ${Array.isArray(devices) ? devices.join(', ') : devices}</p>
           <p><b>Course:</b> ${course}</p>
           <p><b>WhatsApp:</b> ${whatsapp}</p>
-          <p><b>Devices:</b> ${Array.isArray(social) ? social.join(', ') : social}</p>
+          <p><b>Socials:</b> ${Array.isArray(social) ? social.join(', ') : social}</p>
         `,
             }),
         });
