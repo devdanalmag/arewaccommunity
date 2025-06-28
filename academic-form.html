@@ -984,6 +984,109 @@
                 width: 100%;
             }
         }
+
+        .acc-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 380px;
+            max-width: 90%;
+            background: rgba(0, 20, 15, 0.95);
+            border: 1px solid #0fff9d;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(15, 255, 157, 0.3);
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            display: none;
+        }
+
+        .acc-notification.active {
+            transform: translateY(0);
+            opacity: 1;
+            display: block;
+        }
+
+        .acc-notification-content {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px;
+            position: relative;
+        }
+
+        .acc-notification-icon {
+            flex-shrink: 0;
+            margin-right: 15px;
+            background: rgba(15, 255, 157, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(15, 255, 157, 0.3);
+        }
+
+        .acc-notification-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .acc-notification-text h3 {
+            color: #0fff9d;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        .acc-notification-text p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .acc-notification-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .acc-notification-close:hover {
+            opacity: 1;
+        }
+
+        .acc-notification-close svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Animation for auto-hide */
+        @keyframes slideOut {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+        }
+
+        .acc-notification.hiding {
+            animation: slideOut 0.5s forwards;
+        }
     </style>
 </head>
 
@@ -1246,7 +1349,27 @@
             </div>
         </div>
     </section>
-
+    <!-- Add this to your HTML (right before closing </body>) -->
+    <div class="acc-notification" id="formNotification">
+        <div class="acc-notification-content">
+            <div class="acc-notification-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0fff9d">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+            </div>
+            <div class="acc-notification-text">
+                <h3>Application Submitted!</h3>
+                <p>Thank you! We've received your application and sent confirmation to your email.</p>
+            </div>
+            <button class="acc-notification-close" id="notificationClose">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ffffff">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+        </div>
+    </div>
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -1364,7 +1487,7 @@
 
         // Form submission
         document.getElementById('academyForm').addEventListener('submit', async function (e) {
-            e.preventDefault(); 
+            e.preventDefault();
 
             // Validate form
             const termsCheckbox = document.getElementById('termsCheckbox');
@@ -1406,7 +1529,7 @@
 
             const result = await res.json();
             if (result.success) {
-                alert("🎉 Thank you! Your application has been submitted.");
+                showSuccessNotification();
                 document.getElementById("academyForm").reset();
             } else {
                 alert("❌ Submission failed. Please try again later.");
@@ -1468,6 +1591,26 @@
         // termsLink.style.animation = 'glow 0.5s 3';
         // }
         // });
+        function showSuccessNotification() {
+            const notification = document.getElementById('formNotification');
+            const closeBtn = document.getElementById('notificationClose');
+
+            // Show notification
+            notification.classList.add('active');
+
+            // Auto-hide after 5 seconds
+            const autoHide = setTimeout(() => {
+                notification.classList.add('hiding');
+                setTimeout(() => notification.classList.remove('active', 'hiding'), 500);
+            }, 5000);
+
+            // Manual close
+            closeBtn.addEventListener('click', () => {
+                clearTimeout(autoHide);
+                notification.classList.add('hiding');
+                setTimeout(() => notification.classList.remove('active', 'hiding'), 500);
+            });
+        }
 
         // Add glow animation for emphasis
         const style = document.createElement('style');
@@ -1479,6 +1622,7 @@
     }
     `;
         document.head.appendChild(style);
+
     </script>
 </body>
 
