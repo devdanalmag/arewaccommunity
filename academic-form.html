@@ -1492,6 +1492,10 @@
         // Form submission
         document.getElementById('academyForm').addEventListener('submit', async function (e) {
             e.preventDefault();
+            document.querySelectorAll('button[type="submit"]').forEach(btn => {
+                btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> SUBMITTING...';
+                btn.disabled = true; // Disable submit button to prevent multiple submissions
+            });
 
             // Validate form
             const termsCheckbox = document.getElementById('termsCheckbox');
@@ -1531,8 +1535,16 @@
             const result = await res.json();
             if (result.success) {
                 showSuccessPopup();
+                document.querySelectorAll('button[type="submit"]').forEach(btn => {
+                    btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
+                    btn.disabled = false; // Disable submit button to prevent multiple submissions
+                });
                 document.getElementById("academyForm").reset();
             } else {
+                document.querySelectorAll('button[type="submit"]').forEach(btn => {
+                    btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
+                    btn.disabled = false; // Disable submit button to prevent multiple submissions
+                });
                 alert("❌ Submission failed. Please try again later.");
             }
 
