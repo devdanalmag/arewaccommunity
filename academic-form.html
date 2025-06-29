@@ -1488,6 +1488,29 @@
             mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
+        async function submitForm(formData) {
+            const loader = showLoader();
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyqsdFMEoiICmMbLUK-OgRxVXkT0cfg95c8Mvz03EVKuWcwbxOFaMFqzi9DoHmxXKCs/exec', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Submission failed');
+                }
+
+                showSuccessPopup();
+                form.reset();
+            } catch (error) {
+                showErrorPopup(error.message);
+            } finally {
+                // loader.remove();
+            }
+        }
 
         // Form submission
         document.getElementById('academyForm').addEventListener('submit', async function (e) {
@@ -1538,30 +1561,11 @@
 
             const result = await res.json();
             if (result.success) {
-                try {
-                    const response = await fetch('https://script.google.com/macros/s/AKfycbwDby8ZIi5daZTq9b7WyNOTxO8Rc35eFbFnLBZt3nMWnC5JmXcKU6Xd3_EiwETCFLpi/exec', {
-                        method: 'POST',
-                        body: JSON.stringify(formData),
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-
-                    const result2 = await response.json();
-
-                    if (result2.success) {
-                        showSuccessPopup();
-                        this.reset();
-                    } else {
-                        alert(result2.message || "This email/WhatsApp number is already registered");
-                    }
-                } catch (error) {
-                    alert("Network error. Please try again later.");
-                    console.error('Submission error:', error);
-                }
-
                 document.querySelectorAll('button[type="submit"]').forEach(btn => {
                     btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
                     btn.disabled = false; // Disable submit button to prevent multiple submissions
                 });
+                  await submitForm(formData);
                 // showSuccessPopup();
                 document.getElementById("academyForm").reset();
             } else {
