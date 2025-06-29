@@ -61,7 +61,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ready to dive into the future of finance? Join ACC Academy and start your Web3 journey today with our expert-led courses and vibrant community. .">
+    <meta name="description"
+        content="Ready to dive into the future of finance? Join ACC Academy and start your Web3 journey today with our expert-led courses and vibrant community. .">
     <meta name="robots" content="index, follow">
     <title>ACC Learn Program Registration | Arewa Crypto Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -549,7 +550,7 @@
                 email,
                 state,
                 course,
-                devices: Array.from(devices).map(d => d.value),
+                devices,
                 twitter: document.querySelector('.social-handle.twitter input').value,
                 facebook: document.querySelector('.social-handle.facebook input').value || '',
                 telegram: document.querySelector('.social-handle.telegram input').value,
@@ -566,39 +567,38 @@
                 body: JSON.stringify({ email, state, devices, course, social, whatsapp }),
             });
 
-            const result = await res.json();
-            if (result.success) {
-                document.querySelectorAll('button[type="submit"]').forEach(btn => {
-                    btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
-                    btn.disabled = false; // Disable submit button to prevent multiple submissions
-                });
-                const loader = showLoader();
-                try {
-                    await submitToGoogleSheets(formData);
-                    showSuccessPopup();
-                    e.target.reset();
-                } catch (error) {
-                    showErrorPopup(error.message || 'An error occurred while submitting the form');
+            const loader = showLoader();
+            try {
+                await submitToGoogleSheets(formData);
+                const result = await res.json();
+                if (result.success) {
                     document.querySelectorAll('button[type="submit"]').forEach(btn => {
                         btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
-                        btn.disabled = false; // Enable submit button again
+                        btn.disabled = false; // Disable submit button to prevent multiple submissions
                     });
-                    console.log(error.message);
-                } finally {
-                    loader.remove();
-                }                // showSuccessPopup();
-                document.getElementById("academyForm").reset();
-            } else {
+                    showSuccessPopup();
+                    document.getElementById("academyForm").reset();
+                } else {
+                    document.querySelectorAll('button[type="submit"]').forEach(btn => {
+                        btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
+                        btn.disabled = false; // Disable submit button to prevent multiple submissions
+                    });
+                    showErrorPopup("An error occurred while submitting the form. Please try again later.");
+                    console.error(result.error || 'Submission failed');
+                    // alert("❌ Submission failed. Please try again later.");
+                }
+                e.target.reset();
+            } catch (error) {
+                showErrorPopup(error.message || 'An error occurred while submitting the form');
                 document.querySelectorAll('button[type="submit"]').forEach(btn => {
                     btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
-                    btn.disabled = false; // Disable submit button to prevent multiple submissions
+                    btn.disabled = false; // Enable submit button again
                 });
-                showErrorPopup("An error occurred while submitting the form. Please try again later.");
-                console.error(result.error || 'Submission failed');
-                // alert("❌ Submission failed. Please try again later.");
+                console.log(error.message);
+            } finally {
+                loader.remove();
             }
-
-            // Here you would typically send the data to your server
+            // Hee you would typically send the data to your server
             console.log('Form submitted:', formData);
 
             // Show success message
