@@ -1632,8 +1632,8 @@
                     btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
                     btn.disabled = false; // Disable submit button to prevent multiple submissions
                 });
+                const loader = showLoader();
                 try {
-                    const loader = showLoader();
                     await submitToGoogleSheets(formData);
                     showSuccessPopup();
                     e.target.reset();
