@@ -1438,38 +1438,38 @@
             if (selectedDevices.includes('android') && selectedDevices.includes('pc')) {
                 document.getElementById('course').innerHTML = `
                     <option value="" disabled selected>Select your course</option>
-                    <option value="course1">Basics in Artificial Intelligence (AI)</option>
-                    <option value="course2">Token & NFT Development</option>
-                    <option value="course3">Telegram Mini-App Development</option>
-                    <option value="course4">Graphics Design</option>
-                    <option value="course5">Content Creation</option>
-                    <option value="course6">Web3 Job Skills</option>
-                    <option value="course7">Airdrop Hunting</option>
-                    <option value="course8">Crypto Trading</option>
+                    <option value="Basics in Artificial Intelligence (AI)">Basics in Artificial Intelligence (AI)</option>
+                    <option value="Token & NFT Development">Token & NFT Development</option>
+                    <option value="Telegram Mini-App Development">Telegram Mini-App Development</option>
+                    <option value="Graphics Design">Graphics Design</option>
+                    <option value="Content Creation">Content Creation</option>
+                    <option value="Web3 Job Skills">Web3 Job Skills</option>
+                    <option value="Airdrop Hunting">Airdrop Hunting</option>
+                    <option value="Crypto Trading">Crypto Trading</option>
                 `;
             }
             else if (selectedDevices.includes('android')) {
                 document.getElementById('course').innerHTML = `
                     <option value="" disabled selected>Select your course</option>
-                    <option value="course1">Basics in Artificial Intelligence (AI)</option>
-                    <option value="course4">Graphics Design</option>
-                    <option value="course5">Content Creation</option>
-                    <option value="course6">Web3 Job Skills</option>
-                    <option value="course7">Airdrop Hunting</option>
-                    <option value="course8">Crypto Trading</option>
+                    <option value="Basics in Artificial Intelligence (AI)">Basics in Artificial Intelligence (AI)</option>
+                    <option value="Graphics Design">Graphics Design</option>
+                    <option value="Content Creation">Content Creation</option>
+                    <option value="Web3 Job Skills">Web3 Job Skills</option>
+                    <option value="Airdrop Hunting">Airdrop Hunting</option>
+                    <option value="Crypto Trading">Crypto Trading</option>
                 `;
             }
             else if (selectedDevices.includes('pc')) {
                 document.getElementById('course').innerHTML = `
                     <option value="" disabled selected>Select your course</option>
-                    <option value="course1">Basics in Artificial Intelligence (AI)</option>
-                    <option value="course2">Token & NFT Development</option>
-                    <option value="course3">Telegram Mini-App Development</option>
-                    <option value="course4">Graphics Design</option>
-                    <option value="course5">Content Creation</option>
-                    <option value="course6">Web3 Job Skills</option>
-                    <option value="course7">Airdrop Hunting</option>
-                    <option value="course8">Crypto Trading</option>
+                    <option value="Basics in Artificial Intelligence (AI)">Basics in Artificial Intelligence (AI)</option>
+                    <option value="Token & NFT Development">Token & NFT Development</option>
+                    <option value="Telegram Mini-App Development">Telegram Mini-App Development</option>
+                    <option value="Graphics Design">Graphics Design</option>
+                    <option value="Content Creation">Content Creation</option>
+                    <option value="Web3 Job Skills">Web3 Job Skills</option>
+                    <option value="Airdrop Hunting">Airdrop Hunting</option>
+                    <option value="Crypto Trading">Crypto Trading</option>
                 `;
             }
             else {
@@ -1538,11 +1538,31 @@
 
             const result = await res.json();
             if (result.success) {
-                showSuccessPopup();
+                try {
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbwDby8ZIi5daZTq9b7WyNOTxO8Rc35eFbFnLBZt3nMWnC5JmXcKU6Xd3_EiwETCFLpi/exec', {
+                        method: 'POST',
+                        body: JSON.stringify(formData),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    const result2 = await response.json();
+
+                    if (result2.success) {
+                        showSuccessPopup();
+                        this.reset();
+                    } else {
+                        alert(result2.message || "This email/WhatsApp number is already registered");
+                    }
+                } catch (error) {
+                    alert("Network error. Please try again later.");
+                    console.error('Submission error:', error);
+                }
+
                 document.querySelectorAll('button[type="submit"]').forEach(btn => {
                     btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
                     btn.disabled = false; // Disable submit button to prevent multiple submissions
                 });
+                // showSuccessPopup();
                 document.getElementById("academyForm").reset();
             } else {
                 document.querySelectorAll('button[type="submit"]').forEach(btn => {
