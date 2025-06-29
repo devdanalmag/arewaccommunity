@@ -557,7 +557,7 @@
             const social = Array.from(document.querySelectorAll(".social-handles input"))
                 .map(el => `${el.placeholder}: ${el.value}`);
 
-            const res = await fetch("api/send-email", {
+            const res = await fetch("JS/api/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, state, devices, course, social, whatsapp }),
