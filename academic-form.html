@@ -985,100 +985,100 @@
             }
         }
 
-  /* Popup Styles */
-.acc-popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,8,8,0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-}
+        /* Popup Styles */
+        .acc-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 8, 8, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
 
-.acc-popup-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
+        .acc-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
-.acc-popup-container {
-  background: #001a0f;
-  border: 1px solid #0fff9d;
-  border-radius: 12px;
-  padding: 30px;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-  box-shadow: 0 0 30px rgba(15,255,157,0.3);
-}
+        .acc-popup-container {
+            background: #001a0f;
+            border: 1px solid #0fff9d;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(15, 255, 157, 0.3);
+        }
 
-.acc-popup-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-}
+        .acc-popup-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
 
-.acc-popup-icon.success {
-  background: rgba(15,255,157,0.1);
-  border: 1px solid #0fff9d;
-}
+        .acc-popup-icon.success {
+            background: rgba(15, 255, 157, 0.1);
+            border: 1px solid #0fff9d;
+        }
 
-.acc-popup-icon.error {
-  background: rgba(255,77,77,0.1);
-  border: 1px solid #ff4d4d;
-}
+        .acc-popup-icon.error {
+            background: rgba(255, 77, 77, 0.1);
+            border: 1px solid #ff4d4d;
+        }
 
-.acc-popup-icon svg {
-  width: 30px;
-  height: 30px;
-}
+        .acc-popup-icon svg {
+            width: 30px;
+            height: 30px;
+        }
 
-.acc-popup-icon.success svg {
-  fill: #0fff9d;
-}
+        .acc-popup-icon.success svg {
+            fill: #0fff9d;
+        }
 
-.acc-popup-icon.error svg {
-  fill: #ff4d4d;
-}
+        .acc-popup-icon.error svg {
+            fill: #ff4d4d;
+        }
 
-.acc-popup-content h3 {
-  color: #0fff9d;
-  font-family: 'Orbitron', sans-serif;
-  margin-bottom: 10px;
-}
+        .acc-popup-content h3 {
+            color: #0fff9d;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 10px;
+        }
 
-.acc-popup-content p {
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 20px;
-}
+        .acc-popup-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
 
-.acc-popup-button {
-  background: #0fff9d;
-  color: #001a0f;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 50px;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
+        .acc-popup-button {
+            background: #0fff9d;
+            color: #001a0f;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-.acc-popup-button:hover {
-  background: #00ffc8;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(15,255,157,0.3);
-}
+        .acc-popup-button:hover {
+            background: #00ffc8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(15, 255, 157, 0.3);
+        }
 
         /* Loader Styles */
         .acc-loader {
@@ -1644,7 +1644,9 @@
                     btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
                     btn.disabled = false; // Disable submit button to prevent multiple submissions
                 });
-                alert("❌ Submission failed. Please try again later.");
+                showErrorPopup("An error occurred while submitting the form. Please try again later.");
+                console.error(result.error || 'Submission failed');
+                // alert("❌ Submission failed. Please try again later.");
             }
 
             // Here you would typically send the data to your server
@@ -1708,7 +1710,7 @@
             popup.className = 'acc-popup-overlay active';
             popup.innerHTML = `
     <div class="acc-popup-container">
-      <div class="acc-popup-icon error">
+      <div class="acc-popup-icon error" style="color: red;">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
       </div>
       <div class="acc-popup-content">
