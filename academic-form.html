@@ -1593,14 +1593,14 @@
                     btn.disabled = false; // Disable submit button to prevent multiple submissions
                 });
                 try {
-                    const loader = showLoader();
+                    // const loader = showLoader();
                     await submitToGoogleSheets(formData);
                     showSuccessPopup();
                     e.target.reset();
                 } catch (error) {
                     showErrorPopup(error.message);
                 } finally {
-                    loader.remove();
+                    // loader.remove();
                 }                // showSuccessPopup();
                 document.getElementById("academyForm").reset();
             } else {
