@@ -1088,6 +1088,46 @@
             width: 18px;
             height: 18px;
         }
+
+        /* Loader Styles */
+        .acc-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 8, 8, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .acc-loader-content {
+            text-align: center;
+            color: #0fff9d;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .acc-loader-spinner {
+            border: 4px solid rgba(15, 255, 157, 0.2);
+            border-top: 4px solid #0fff9d;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -1593,14 +1633,14 @@
                     btn.disabled = false; // Disable submit button to prevent multiple submissions
                 });
                 try {
-                    // const loader = showLoader();
+                    const loader = showLoader();
                     await submitToGoogleSheets(formData);
                     showSuccessPopup();
                     e.target.reset();
                 } catch (error) {
-                    showErrorPopup(error.message);
+                    console.log(error.message);
                 } finally {
-                    // loader.remove();
+                    loader.remove();
                 }                // showSuccessPopup();
                 document.getElementById("academyForm").reset();
             } else {
@@ -1667,6 +1707,25 @@
         // termsLink.style.animation = 'glow 0.5s 3';
         // }
         // });
+        function showErrorPopup(message) {
+            const popup = document.createElement('div');
+            popup.className = 'acc-popup-overlay active';
+            popup.innerHTML = `
+    <div class="acc-popup-container">
+      <div class="acc-popup-icon error">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+      </div>
+      <div class="acc-popup-content">
+        <h3>Error</h3>
+        <p>${message}</p>
+      </div>
+      <button class="acc-popup-button" onclick="this.closest('.acc-popup-overlay').remove()">
+        Try Again
+      </button>
+    </div>
+  `;
+            document.body.appendChild(popup);
+        }
         function showSuccessPopup() {
             const popup = document.getElementById('formPopup');
             const closeBtn = document.getElementById('popupClose');
@@ -1685,6 +1744,18 @@
                     popup.classList.remove('active');
                 }
             });
+        }
+        function showLoader() {
+            const loader = document.createElement('div');
+            loader.className = 'acc-loader';
+            loader.innerHTML = `
+    <div class="acc-loader-content">
+      <div class="acc-loader-spinner"></div>
+      <p>Processing...</p>
+    </div>
+  `;
+            document.body.appendChild(loader);
+            return loader;
         }
         // Add glow animation for emphasis
         const style = document.createElement('style');
