@@ -550,7 +550,7 @@
         // Check for duplicate entries
         async function checkForDuplicates(email, whatsapp) {
             try {
-                const response = await fetch('https://script.google.com/macros/s/1v-JnmaBYNw1ekX1xfwKKvm5YJT83qkadoHsVFm9C0I4/exec?action=checkDuplicates', {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyXT-eqJz9bKxjveSlCLUBNw1SXZ2VZKH5lx5OUdYbdjpDhpxqPxomQvztEthXHIqhK/exec?action=checkDuplicates', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, whatsapp })
@@ -590,7 +590,7 @@
         }
 
         function buildScriptUrl(data, callback) {
-            const baseUrl = 'https://script.google.com/macros/s/1v-JnmaBYNw1ekX1xfwKKvm5YJT83qkadoHsVFm9C0I4/exec';
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbyXT-eqJz9bKxjveSlCLUBNw1SXZ2VZKH5lx5OUdYbdjpDhpxqPxomQvztEthXHIqhK/exec';
             const params = new URLSearchParams();
 
             params.append('callback', callback);
