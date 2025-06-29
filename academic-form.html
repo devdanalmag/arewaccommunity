@@ -1638,6 +1638,11 @@
                     showSuccessPopup();
                     e.target.reset();
                 } catch (error) {
+                    showErrorPopup(error.message || 'An error occurred while submitting the form');
+                    document.querySelectorAll('button[type="submit"]').forEach(btn => {
+                        btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
+                        btn.disabled = false; // Enable submit button again
+                    });
                     console.log(error.message);
                 } finally {
                     loader.remove();
