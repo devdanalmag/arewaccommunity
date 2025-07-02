@@ -47,34 +47,35 @@
 
     <!-- Registration Section -->
     <!-- Social Media Links -->
-     <section class="registration">
-    <div class="social-connect">
-        <div class="social-header">
-            <i class="fas fa-bell"></i>
-            <h3>Stay Connected & Enable Notifications</h3>
-        </div>
-        <p class="social-subtext">Join our community channels to get the latest updates and
-            announcements</p>
+    <section class="registration">
+        <div class="social-connect">
+            <div class="social-header">
+                <i class="fas fa-bell"></i>
+                <h3>Stay Connected & Enable Notifications</h3>
+            </div>
+            <p class="social-subtext">Join our community channels to get the latest updates and
+                announcements</p>
 
-        <div class="btn-group">
-            <a href="https://t.me/acccommunitychannel" target="_blank" class="btn btn-telegram">
-                <i class="fab fa-telegram"></i> Telegram
-            </a>
-            <a href="https://discord.gg/XhRHPaXB" target="_blank" class="btn btn-discord">
-                <i class="fab fa-discord"></i> Discord
-            </a>
-            <a href="https://x.com/acc_community" target="_blank" class="btn btn-twitter">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path
-                        d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
-                </svg>
-                Twitter/X
-            </a>
+            <div class="btn-group">
+                <a href="https://t.me/acccommunitychannel" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+                <a href="https://discord.gg/XhRHPaXB" target="_blank" class="btn btn-discord">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+                <a href="https://x.com/acc_community" target="_blank" class="btn btn-twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                    </svg>
+                    Twitter/X
+                </a>
+            </div>
         </div>
-    </div>
     </section>
     <!-- Add this to your HTML (right before closing </body>) -->
-    <div class="acc-popup-overlay active" id="formPopup" >
+    <div class="acc-popup-overlay active" id="formPopup">
         <div class="acc-popup-container">
             <div class="acc-popup-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0fff9d">
@@ -90,7 +91,8 @@
                     opportunities.
                 </p>
             </div>
-            <button class="acc-popup-button" id="popupClose" onclick="document.getElementById('formPopup').classList.remove('active')">
+            <button class="acc-popup-button" id="popupClose"
+                onclick="document.getElementById('formPopup').classList.remove('active')">
                 <span>Close</span>
             </button>
         </div>
@@ -152,5 +154,16 @@
         </div>
     </footer>
 </body>
+<script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
+            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+</script>
 
 </html>
