@@ -1,3 +1,4 @@
+checkdevices();
 
         function checkdevices() {
             const devices = document.querySelectorAll('input[name="device"]:checked');
@@ -89,7 +90,7 @@
         }
 
         function buildScriptUrl(data, callback) {
-            const baseUrl = 'https://script.google.com/macros/s/AKfycbwQCzwQvnvnLvP9fkB32OV6kWz4pUHR4LNyVizB9te5xNT7acihAUXzIjHSC0YSyzp7/exec';
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbxJPCseWPrsL1Fl7SFGClUNo0bzyZbxssss_dcZzeZz70cZTTPpoimzp5gmqjMV7LDOMQ/exec';
             const params = new URLSearchParams();
 
             // Add callback parameter
@@ -110,12 +111,59 @@
         // Form submission
         document.getElementById('academyForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            document.querySelectorAll('button[type="submit"]').forEach(btn => {
-                btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> SUBMITTING...';
-                btn.disabled = true; // Disable submit button to prevent multiple submissions
-            });
 
-            // Validate form
+            // Disable all submit buttons and show loading state
+            const submitButtons = document.querySelectorAll('button[type="submit"]');
+            setButtonsLoadingState(submitButtons, true);
+
+            try {
+                // Validate form
+                if (!validateForm()) {
+                    setButtonsLoadingState(submitButtons, false);
+                    return;
+                }
+
+                // Collect form data
+                const formData = collectFormData();
+
+                // Show loader
+                const loader = showLoader();
+
+                try {
+                    // Submit to Google Sheets first
+                    await submitToGoogleSheets(formData);
+
+                    // If successful, send email
+                    const emailResponse = await sendFormEmail(formData);
+
+                    if (emailResponse.success) {
+                        showSuccessPopup();
+                        this.reset();
+                    } else {
+                        throw new Error(emailResponse.error || 'Email submission failed');
+                    }
+                } finally {
+                    loader.remove();
+                }
+            } catch (error) {
+                showErrorPopup(error.message || 'An error occurred while submitting the form');
+                console.error('Submission error:', error);
+            } finally {
+                setButtonsLoadingState(submitButtons, false);
+            }
+        });
+
+        // Helper functions
+        function setButtonsLoadingState(buttons, isLoading) {
+            buttons.forEach(btn => {
+                btn.innerHTML = isLoading
+                    ? '<i class="fa fa-spinner fa-spin"></i> SUBMITTING...'
+                    : '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
+                btn.disabled = isLoading;
+            });
+        }
+
+        function validateForm() {
             const termsCheckbox = document.getElementById('termsCheckbox');
             const email = document.getElementById('email').value;
             const state = document.getElementById('state').value;
@@ -125,75 +173,57 @@
 
             if (!email || !state || !course || devices.length === 0 || !whatsapp || !termsCheckbox.checked) {
                 alert('Please fill all required fields and accept the Terms and Conditions');
-                document.querySelectorAll('button[type="submit"]').forEach(btn => {
-                    btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
-                    btn.disabled = false; // Disable submit button to prevent multiple submissions
-                });
-                return;
+                return false;
             }
+            return true;
+        }
 
-            // Collect form data
-            const formData = {
+        function collectFormData() {
+            const email = document.getElementById('email').value;
+            const state = document.getElementById('state').value;
+            const course = document.getElementById('course').value;
+            const devices = Array.from(document.querySelectorAll('input[name="device"]:checked')).map(el => el.value);
+            const whatsapp = document.getElementById('whatsapp').value;
+
+            const socialHandles = Array.from(document.querySelectorAll(".social-handles input"))
+                .map(el => `${el.placeholder}: ${el.value}`);
+
+            return {
                 email,
                 state,
                 course,
-                devices: Array.from(devices).map(d => d.value),
+                devices,
                 twitter: document.querySelector('.social-handle.twitter input').value,
                 facebook: document.querySelector('.social-handle.facebook input').value || '',
                 telegram: document.querySelector('.social-handle.telegram input').value,
                 discord: document.querySelector('.social-handle.discord input').value,
-                whatsapp
+                whatsapp,
+                social: socialHandles
             };
+        }
 
-            const social = Array.from(document.querySelectorAll(".social-handles input"))
-                .map(el => `${el.placeholder}: ${el.value}`);
-
+        async function sendFormEmail(formData) {
             const res = await fetch("api/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, state, devices, course, social, whatsapp }),
+                body: JSON.stringify({
+                    email: formData.email,
+                    state: formData.state,
+                    devices: formData.devices,
+                    course: formData.course,
+                    social: formData.social,
+                    whatsapp: formData.whatsapp
+                }),
             });
 
-            const result = await res.json();
-            if (result.success) {
-                document.querySelectorAll('button[type="submit"]').forEach(btn => {
-                    btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
-                    btn.disabled = false; // Disable submit button to prevent multiple submissions
-                });
-                const loader = showLoader();
-                try {
-                    await submitToGoogleSheets(formData);
-                    showSuccessPopup();
-                    e.target.reset();
-                } catch (error) {
-                    showErrorPopup(error.message || 'An error occurred while submitting the form');
-                    document.querySelectorAll('button[type="submit"]').forEach(btn => {
-                        btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
-                        btn.disabled = false; // Enable submit button again
-                    });
-                    console.log(error.message);
-                } finally {
-                    loader.remove();
-                }                // showSuccessPopup();
-                document.getElementById("academyForm").reset();
-            } else {
-                document.querySelectorAll('button[type="submit"]').forEach(btn => {
-                    btn.innerHTML = '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
-                    btn.disabled = false; // Disable submit button to prevent multiple submissions
-                });
-                showErrorPopup("An error occurred while submitting the form. Please try again later.");
-                console.error(result.error || 'Submission failed');
-                // alert("❌ Submission failed. Please try again later.");
-            }
+            return await res.json();
+        }
 
-            // Here you would typically send the data to your server
-            console.log('Form submitted:', formData);
-
-            // Show success message
-            // alert('Application submitted successfully! We will contact you via WhatsApp soon.');
-            this.reset();
-        });
-
+        // These functions should be defined elsewhere in your code
+        // function showLoader() { ... }
+        // function showSuccessPopup() { ... }
+        // function showErrorPopup(message) { ... }
+        // async function submitToGoogleSheets(formData) { ... }
         // Add country code helper for WhatsApp field
         document.getElementById('whatsapp').addEventListener('focus', function () {
             if (!this.value.startsWith('+')) {
@@ -302,4 +332,5 @@
     }
     `;
         document.head.appendChild(style);
+
 

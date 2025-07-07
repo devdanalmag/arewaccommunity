@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Ready to dive into the future of finance? Join ACC Academy and start your Web3 journey today with our expert-led courses and vibrant community. .">
+    <meta name="robots" content="index, follow">
+    <title>ACC Learn Program Teacher Registration | Arewa Crypto Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" href="imgs/icon.png" type="image/png">
+    <link rel="stylesheet" href="css/registrationform.css">
+    <!-- <script src="js/registrationform.js"></script> -->
+</head>
+
+<body>
+    <!-- Quantum Grid Background -->
+    <div class="quantum-grid"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="imgs/icon.png" alt="ACC Logo" class="logo-img">
+                <span>A.</span>C.C <span></span>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home">HOME</a></li>
+                <li><a href="index.html#mission">MISSION</a></li>
+                <li><a href="index.html#features">FEATURES</a></li>
+                <li><a href="index.html#events">EVENTS</a></li>
+                <li><a href="index.html#join">JOIN</a></li>
+                <li><a href="pfp-maker.html">PFP MAKER</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Registration Section -->
+    <section class="registration">
+        <div class="registration-container">
+            <div class="registration-header">
+                <h2 class="section-title">ACC LEARN PROGRAM TEACHERS FORM</h2>
+                <p class="section-subtitle">Join our Web3 education program and kickstart your journey into blockchain
+                    technology</p>
+            </div>
+
+            <div class="registration-card">
+                <form id="academyForm">
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label for="fullName">FULL NAME <b style="color: red;">*</b></label>
+                        <input type="text" id="fullName" class="form-control" required placeholder="Full Name">
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="form-group">
+                        <label for="email">EMAIL ADDRESS <b style="color: red;">*</b></label>
+                        <input type="email" id="email" class="form-control" required placeholder="your@email.com">
+                    </div>
+
+                    <!-- Preferred Course -->
+                    <div class="form-group">
+                        <label for="course">COURSE TO TEACH <b style="color: red;">*</b></label>
+                        <select id="course" class="form-control" required>
+                            <option value="" disabled selected>Select your course</option>
+                            <option value="Basics in Artificial Intelligence (AI)">Basics in Artificial Intelligence
+                                (AI)</option>
+                            <option value="Token & NFT Development">Token & NFT Development</option>
+                            <option value="Telegram Mini-App Development">Telegram Mini-App Development</option>
+                            <option value="Graphics Design">Graphics Design</option>
+                            <option value="Content Creation">Content Creation</option>
+                            <option value="Web3 Job Skills">Web3 Job Skills</option>
+                            <option value="Airdrop Hunting">Airdrop Hunting</option>
+                            <option value="Crypto Trading">Crypto Trading</option>
+                        </select>
+                    </div>
+
+                    <!-- Social Handles -->
+                    <div class="form-group">
+                        <label>SOCIAL HANDLES<b style="color: red;">*</b></label>
+                        <div class="social-handles">
+                            <div class="social-handle twitter">
+                                <i class="fa"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                                    </svg></i> <input type="text" class="form-control" placeholder="Twitter username"
+                                    required>
+                            </div>
+                            <div class="social-handle telegram">
+                                <i class="fab fa-telegram"></i>
+                                <input type="text" class="form-control" placeholder="Telegram username" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp Number -->
+                    <div class="form-group">
+                        <label for="whatsapp">WHATSAPP NUMBER <b style="color: red;">*</b></label>
+                        <input type="tel" id="whatsapp" class="form-control" required placeholder="+2348012345678">
+                    </div>
+                    <div class="terms-checkbox">
+                        <label class="terms-label">
+                            <input type="checkbox" id="termsCheckbox" required>
+                            I agree to the <span class="terms-link" id="termsLink">Terms and Conditions</span>
+                        </label>
+                    </div>
+
+                    <!-- Terms and Conditions Modal -->
+                    <div class="terms-modal" id="termsModal">
+                        <div class="terms-container">
+                            <button class="terms-close" id="termsClose">&times;</button>
+                            <h2 class="terms-title">TERMS AND CONDITIONS</h2>
+                            <div class="terms-content">
+                                <h3>Acceptance of Terms</h3>
+                                <p>By joining the ACC Learn Program, you agree to be bound by these Terms and
+                                    Conditions. If you do not agree with any part of these terms, you must not
+                                    participate in the program.</p>
+
+                                <h3>Introduction</h3>
+                                <p>All teachers are expected to carefully review and adhere to the following rules and
+                                    regulations before applying and throughout the duration of the program.</p>
+
+                                <h3>1. Preparation and Teaching</h3>
+                                <p>
+                                    • Submit your Scheme of Work to the management at least two (2) days before the
+                                    commencement of classes.<br>
+                                    • Provide your proposed class timetable in alignment with the approved scheme of
+                                    work.<br>
+                                    • Adhere strictly to the scheme of work and academic timeline as outlined by the
+                                    program management.<br>
+                                    • Plan and deliver engaging, inclusive, and curriculum-aligned lessons.<br>
+                                    • Employ varied and appropriate teaching methods to address different student
+                                    learning styles and needs.
+                                </p>
+
+                                <h3>2. Professional Conduct</h3>
+                                <p>
+                                    • Uphold a respectful, ethical, and professional demeanor at all times.<br>
+                                    • Treat all students equally, without discrimination based on gender, background, or
+                                    beliefs.<br>
+                                    • Avoid favoritism, bias, or any form of harassment.<br>
+                                    • Foster a safe, inclusive, and supportive learning environment.
+                                </p>
+
+                                <h3>3. Punctuality and Attendance</h3>
+                                <p>
+                                    • Be punctual for both management briefings and class sessions.<br>
+                                    • Notify management in advance of any planned absence or lateness.<br>
+                                    • Failure to provide timely notice may result in the assignment of a substitute
+                                    instructor for your session.
+                                </p>
+                            </div>
+                            <button class="terms-accept-btn" id="termsAccept">I Accept</button>
+                        </div>
+                    </div>
+                    <!-- Social Media Links -->
+                    <div class="social-connect">
+                        <div class="social-header">
+                            <i class="fas fa-bell"></i>
+                            <h3>Stay Connected & Enable Notifications</h3>
+                        </div>
+                        <p class="social-subtext">Join our community channels to get the latest updates and
+                            announcements</p>
+
+                        <div class="btn-group">
+                            <a href="https://t.me/acccommunitychannel" target="_blank" class="btn btn-telegram">
+                                <i class="fab fa-telegram"></i> Telegram
+                            </a>
+                            <a href="https://discord.gg/XhRHPaXB" target="_blank" class="btn btn-discord">
+                                <i class="fab fa-discord"></i> Discord
+                            </a>
+                            <a href="https://x.com/acc_community" target="_blank" class="btn btn-twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                                </svg>
+                                Twitter/X
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT</button>
+                    </div>
+
+                    <div class="form-footer">
+                        <p>We'll contact you via Email</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Add this to your HTML (right before closing </body>) -->
+    <div class="acc-popup-overlay" id="formPopup">
+        <div class="acc-popup-container">
+            <div class="acc-popup-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0fff9d">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+            </div>
+            <div class="acc-popup-content">
+                <h3>Application Submitted Successfully!</h3>
+                <p>Thank you for joining ACC Learn Program. We've received your application and sent confirmation
+                    details to your email.</p>
+            </div>
+            <button class="acc-popup-button" id="popupClose">
+                <span>Close</span>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <span>A</span>CC
+                </div>
+                <p class="footer-about">
+                    The Arewa Crypto Community is empowering Northern Nigeria through blockchain education and
+                    innovation, creating opportunities in the Web3 economy.
+                </p>
+                <div class="footer-social">
+                    <a href="https://discord.gg/XhRHPaXB" target="_blank" class="footer-social-link"><i
+                            class="fab fa-discord"></i></a>
+                    <a href="https://t.me/acccommunitychannel" target="_blank" class="footer-social-link"><i
+                            class="fab fa-telegram"></i></a>
+                    <a href="https://x.com/acc_community" target="_blank" class="footer-social-link"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">QUICK LINKS</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#mission">Our Mission</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#events">Events</a></li>
+                    <li><a href="index.html#join">Join Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">RESOURCES</h3>
+                <ul class="footer-links">
+                    <li><a href="pfp-maker.html">PFP Maker</a></li>
+                    <li><a href="#">ACC Learn Program</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">CONTACT US</h3>
+                <ul class="footer-links">
+                    <li><a href="https://x.com/acc_community" target="_blank">Twitter</a></li>
+                    <li><a href="https://t.me/acccommunitychannel" target="_blank">Telegram</a></li>
+                    <li><a href="https://discord.gg/XhRHPaXB" target="_blank">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AREWA CRYPTO COMMUNITY. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        function submitToGoogleSheets(formData) {
+            return new Promise((resolve, reject) => {
+                const callbackName = 'jsonp_callback_' + Date.now();
+                const scriptUrl = buildScriptUrl(formData, callbackName);
+
+                // Create temporary callback function
+                window[callbackName] = function (response) {
+                    cleanup(callbackName);
+                    if (response.success) {
+                        resolve(response);
+                    } else {
+                        reject(new Error(response.error || 'Submission failed'));
+                    }
+                };
+
+                // Create and inject script tag
+                const script = document.createElement('script');
+                script.src = scriptUrl;
+                script.onerror = () => {
+                    cleanup(callbackName);
+                    reject(new Error('Network error'));
+                };
+                document.body.appendChild(script);
+
+                // Cleanup function
+                function cleanup(callback) {
+                    delete window[callback];
+                    document.body.removeChild(script);
+                }
+            });
+        }
+
+        function buildScriptUrl(data, callback) {
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbyvypTqKujKuA8NRcz-EdTLCH3Inwxq2OFo3BaEKazXJ4P-BhsqWaZ1DPauuaTZfmg__g/exec';
+            const params = new URLSearchParams();
+
+            // Add callback parameter
+            params.append('callback', callback);
+
+            // Add form data
+            for (const key in data) {
+                if (Array.isArray(data[key])) {
+                    params.append(key, data[key].join(','));
+                } else {
+                    params.append(key, data[key]);
+                }
+            }
+
+            return `${baseUrl}?${params.toString()}`;
+        }
+
+        // Form submission
+        document.getElementById('academyForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Disable all submit buttons and show loading state
+            const submitButtons = document.querySelectorAll('button[type="submit"]');
+            setButtonsLoadingState(submitButtons, true);
+
+            try {
+                // Validate form
+                if (!validateForm()) {
+                    setButtonsLoadingState(submitButtons, false);
+                    return;
+                }
+
+                // Collect form data
+                const formData = collectFormData();
+
+                // Show loader
+                const loader = showLoader();
+
+                try {
+                    // Submit to Google Sheets first
+                    await submitToGoogleSheets(formData);
+
+                    // If successful, send email
+                    const emailResponse = await sendFormEmail(formData);
+
+                    if (emailResponse.success) {
+                        showSuccessPopup();
+                        this.reset();
+                    } else {
+                        throw new Error(emailResponse.error || 'Email submission failed');
+                    }
+                } finally {
+                    loader.remove();
+                }
+            } catch (error) {
+                showErrorPopup(error.message || 'An error occurred while submitting the form');
+                console.error('Submission error:', error);
+            } finally {
+                setButtonsLoadingState(submitButtons, false);
+            }
+        });
+
+        // Helper functions
+        function setButtonsLoadingState(buttons, isLoading) {
+            buttons.forEach(btn => {
+                btn.innerHTML = isLoading
+                    ? '<i class="fa fa-spinner fa-spin"></i> SUBMITTING...'
+                    : '<i class="fa fa-user-plus" aria-hidden="true"></i> SUBMIT';
+                btn.disabled = isLoading;
+            });
+        }
+
+        function validateForm() {
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            const email = document.getElementById('email').value;
+            const fullName = document.getElementById('fullName').value;
+            const course = document.getElementById('course').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+
+            if (!email || !fullName || !course || !whatsapp || !termsCheckbox.checked) {
+                alert('Please fill all required fields and accept the Terms and Conditions');
+                return false;
+            }
+            return true;
+        }
+
+        function collectFormData() {
+            const email = document.getElementById('email').value;
+            const fullName = document.getElementById('fullName').value;
+            const course = document.getElementById('course').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+
+            const socialHandles = Array.from(document.querySelectorAll(".social-handles input"))
+                .map(el => `${el.placeholder}: ${el.value}`);
+
+            return {
+                email,
+                fullName,
+                course,
+                twitter: document.querySelector('.social-handle.twitter input').value,
+                telegram: document.querySelector('.social-handle.telegram input').value,
+                whatsapp,
+                social: socialHandles
+            };
+        }
+
+        async function sendFormEmail(formData) {
+            const res = await fetch("api/send-email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    fullName: formData.fullName,
+                    email: formData.email,
+                    course: formData.course,
+                    social: formData.social,
+                    whatsapp: formData.whatsapp
+                }),
+            });
+
+            return await res.json();
+        }
+
+        // These functions should be defined elsewhere in your code
+        // function showLoader() { ... }
+        // function showSuccessPopup() { ... }
+        // function showErrorPopup(message) { ... }
+        // async function submitToGoogleSheets(formData) { ... }
+        // Add country code helper for WhatsApp field
+        document.getElementById('whatsapp').addEventListener('focus', function () {
+            if (!this.value.startsWith('+')) {
+                this.value = '+234';
+            }
+        });
+
+        // Terms and Conditions Modal Functionality
+        const termsModal = document.getElementById('termsModal');
+        const termsLink = document.getElementById('termsLink');
+        const termsClose = document.getElementById('termsClose');
+        const termsAccept = document.getElementById('termsAccept');
+        const termsCheckbox = document.getElementById('termsCheckbox');
+
+        // Open modal when terms link is clicked
+        termsLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            termsModal.classList.add('active');
+        });
+
+        // Close modal when X is clicked
+        termsClose.addEventListener('click', function () {
+            termsModal.classList.remove('active');
+        });
+
+        // Accept terms and close modal
+        termsAccept.addEventListener('click', function (e) {
+            termsModal.classList.remove('active');
+            termsCheckbox.checked = true;
+            e.preventDefault();
+        });
+
+        // Close modal when clicking outside
+        termsModal.addEventListener('click', function (e) {
+            if (e.target === termsModal) {
+                termsModal.classList.remove('active');
+            }
+        });
+
+        // Form validation
+        // document.getElementById('academyForm').addEventListener('submit', function (e) {
+        // if (!termsCheckbox.checked) {
+        // e.preventDefault();
+        // alert('You must accept the Terms and Conditions to submit your application');
+        // termsLink.scrollIntoView({ behavior: 'smooth' });
+        // termsLink.style.animation = 'glow 0.5s 3';
+        // }
+        // });
+        function showErrorPopup(message) {
+            const popup = document.createElement('div');
+            popup.className = 'acc-popup-overlay active';
+            popup.innerHTML = `
+    <div class="acc-popup-container">
+      <div class="acc-popup-icon error" style="color: red;">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+      </div>
+      <div class="acc-popup-content">
+        <h3>Error</h3>
+        <p>${message}</p>
+      </div>
+      <button class="acc-popup-button" onclick="this.closest('.acc-popup-overlay').remove()">
+        Try Again
+      </button>
+    </div>
+  `;
+            document.body.appendChild(popup);
+        }
+        function showSuccessPopup() {
+            const popup = document.getElementById('formPopup');
+            const closeBtn = document.getElementById('popupClose');
+
+            // Show popup
+            popup.classList.add('active');
+
+            // Close functionality
+            closeBtn.addEventListener('click', () => {
+                popup.classList.remove('active');
+            });
+
+            // Close when clicking outside
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    popup.classList.remove('active');
+                }
+            });
+        }
+        function showLoader() {
+            const loader = document.createElement('div');
+            loader.className = 'acc-loader';
+            loader.innerHTML = `
+    <div class="acc-loader-content">
+      <div class="acc-loader-spinner"></div>
+      <p>Processing...</p>
+    </div>
+  `;
+            document.body.appendChild(loader);
+            return loader;
+        }
+        // Add glow animation for emphasis
+        const style = document.createElement('style');
+        style.textContent = `
+    @keyframes glow {
+    0% { text-shadow: none; }
+    50% { text-shadow: 0 0 10px var(--neon-green); }
+    100% { text-shadow: none; }
+    }
+    `;
+        document.head.appendChild(style);
+
+
+
+    </script>
+</body>
+
+</html>
