@@ -14,9 +14,9 @@ export default async function handler(req, res) {
                 "content-type": "application/json",
             },
             body: JSON.stringify({
-                sender: { name: "ACC Learn Registration", email: "acclearnprogram@gmail.com" }, // ← must be verified sender!
+                sender: { name: "ACC LEARN PROGRAM", email: "acclearnprogram@gmail.com" }, // ← must be verified sender!
                 to: [{ email: `${email}` }],
-                subject: "New Registration Submission",
+                subject: "New Teachers Application Submission",
                 htmlContent: `<!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +91,7 @@ export default async function handler(req, res) {
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>NEW ACC LEARN APPLICATION</h1>
+            <h1>ALP TEACHERS APPLICATION</h1>
         </div>
         
         <div class="content">
@@ -129,8 +129,9 @@ export default async function handler(req, res) {
             </div>
             <div class="divider"></div>
             <div class="data-row">
-                <b class="label" style="color:red;" >Please Do Well To Reply With Your Scheme of work.</b>
-                <div class="value"></div>
+                <b class="value" style="color:red;
+            font-weight: 600;
+            font-size: 15px;">Please Do Well To Reply With Your Scheme of work.</b>
         </div>
         
         <div class="footer">
