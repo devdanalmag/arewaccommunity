@@ -108,7 +108,7 @@ export default async function handler(req, res) {
             <div class="divider"></div>
             
             <div class="data-row">
-                <div class="label">Selected Course To Teach:</div>
+                <div class="label">Course To Teach:</div>
                 <div class="value" style="font-weight:500;">${course}</div>
             </div>
             
