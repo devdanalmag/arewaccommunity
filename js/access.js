@@ -30,7 +30,7 @@
 
     // Main verification logic
     if (!getCookie('PAGEACCESS')) {
-        const mycode = prompt("This Page is Under Development. Please enter your verification code:");
+        const mycode = prompt("Please enter your Access code:");
 
         if (mycode === null || mycode.trim() === "") {
             console.log(mycode === null ? "User cancelled the prompt." : "No code entered.");
