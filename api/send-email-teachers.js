@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>📝 New ACC Learn Program Application</title>
+    <title>📝ACC Learn Program Teachers Application</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -96,7 +96,7 @@ export default async function handler(req, res) {
         
         <div class="content">
                     <div class="data-row">
-                <div class="label">Email:</div>
+                <div class="label">Full Name:</div>
                 <div class="value">${fullName}</div>
             </div>
             <div class="data-row">
@@ -127,6 +127,10 @@ export default async function handler(req, res) {
                         social}
                 </div>
             </div>
+            <div class="divider"></div>
+            <div class="data-row">
+                <b class="label" style="color:red;" >Please Do Well To Reply With Your Scheme of work.</b>
+                <div class="value"></div>
         </div>
         
         <div class="footer">
