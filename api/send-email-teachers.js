@@ -129,7 +129,7 @@ export default async function handler(req, res) {
             </div>
             <div class="divider"></div>
             <div class="data-row">
-                <b class="value" style="color:red;
+                <b style="color:red;
             font-weight: 600;
             font-size: 15px;">Please Do Well To Reply With Your Scheme of work.</b>
         </div>
