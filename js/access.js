@@ -41,7 +41,7 @@
         else {
             const trimmedCode = mycode.trim().toUpperCase();
 
-            if (trimmedCode !== "ACC-AUTH-2025") {
+            if (trimmedCode !== "ALP2025") {
                 console.log("Invalid code entered: " + trimmedCode);
                 deleteCookie('PAGEACCESS');
                 alert("Invalid code. Redirecting to homepage.");
