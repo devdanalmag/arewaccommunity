@@ -170,6 +170,8 @@
         .admission-message {
             line-height: 1.8;
             margin-bottom: 2rem;
+            overflow-y: auto;
+
         }
 
         .admission-course {
@@ -289,6 +291,50 @@
                 transform: scale(1);
             }
         }
+
+        .admission-container {
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+            /* Limit maximum height */
+        }
+
+        /* Scrollable content area */
+        .scrollable-content {
+            overflow-y: auto;
+            max-height: calc(70vh - 100px);
+            /* Adjust based on your needs */
+            padding-right: 10px;
+            /* Prevent content from touching scrollbar */
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        /* Custom scrollbar styling */
+        .scrollable-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 3px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 157, 0.3);
+            border-radius: 3px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 157, 0.5);
+        }
+
+        /* Button container styling */
+        .popup-button-container {
+            flex-shrink: 0;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 255, 157, 0.2);
+        }
     </style>
 </head>
 
@@ -351,14 +397,18 @@
                 <i class="fas fa-trophy"></i>
             </div>
             <h3 class="admission-title">🎉 Congratulations!</h3>
-            <div class="admission-message">
-                <p>You're Admitted into the ACC Learn Program (ALP) 2025</p>
-                <p>Dear <span id="admittedEmail"></span>,</p>
-                <p>Congratulations! We're excited to inform you that you have been successfully admitted into the:</p>
-                <div class="admission-course" id="admittedCourse"></div>
-                <p>You were selected from a highly competitive pool of applicants, and we're thrilled to have you join
-                    our learning community.</p>
-                <p><strong>Check your email immediately for further steps to keep your slot!</strong></p>
+            <div class="scrollable-content">
+                <div class="admission-message">
+                    <p>You're Admitted into the ACC Learn Program (ALP) 2025</p>
+                    <p>Dear <span id="admittedEmail"></span>,</p>
+                    <p>Congratulations! We're excited to inform you that you have been successfully admitted into the:
+                    </p>
+                    <div class="admission-course" id="admittedCourse"></div>
+                    <p>You were selected from a highly competitive pool of applicants, and we're thrilled to have you
+                        join
+                        our learning community.</p>
+                    <p><strong>Check your email immediately for further steps to keep your slot!</strong></p>
+                </div>
             </div>
             <button class="admission-close" id="closePopup">CLOSE</button>
         </div>
@@ -371,18 +421,50 @@
                 <i class="fas fa-heart-broken"></i>
             </div>
             <h3 class="admission-title">😔 Application Status</h3>
-            <div class="admission-message">
-                <p>Dear <span id="applicantEmail"></span>,</p>
-                <p>Thank you for applying to the ACC Learn Program (ALP) 2025. We truly appreciate your interest and the
-                    effort you put into your application.<strong>Unfortunately</strong>, due to limited slots and available resources, we were unable to admit
-                    all qualified applicants in this batch.
-<!-- 
-                <div class="alternative-option">
-                    <i class="fas fa-lightbulb" style="color: #0fff9d; margin-right: 8px;"></i>We strongly encourage you to stay connected and look out for the next batch of the program, which
-                        will be announced soon and also do well to check your email for more info..
-                </div> -->
+
+            <!-- Add scrollable content container -->
+            <div class="scrollable-content">
+                <div class="admission-message">
+                    <p>Dear <span id="applicantEmail"></span>,</p>
+                    <p>Thank you for applying to the ACC Learn Program (ALP) 2025. We truly appreciate your interest
+                        and
+                        the effort you put into your application.</p>
+
+                    <p><strong>Unfortunately</strong>, due to limited slots and available resources, we were unable
+                        to
+                        admit all qualified applicants in this batch.</p>
+
+                    <div class="alternative-option">
+                        <i class="fas fa-lightbulb" style="color: #0fff9d; margin-right: 8px;"></i>
+                        <p>We strongly encourage you to stay connected and look out for the next batch of the
+                            program,
+                            which will be announced soon.</p>
+                    </div>
+
+                    <div class="recommendation-box">
+                        <h4>💡 Alternative Opportunity</h4>
+                        <p>Consider joining the Hedera Developer Course — a valuable opportunity to begin building
+                            your
+                            skills:</p>
+                        <a href="https://hashgraphdev.com/?code=darACC" target="_blank" class="hedera-link">
+                            <i class="fas fa-external-link-alt"></i> https://hashgraphdev.com/?code=darACC
+                        </a>
+                        <p>Join the Telegram group for the Hedera Developer Program:</p>
+                        <a href="https://t.me/+0a0x66EvG_lkYjk0" target="_blank" class="hedera-link">
+                            <i class="fab fa-telegram"></i> https://t.me/+0a0x66EvG_lkYjk0
+                        </a>
+                    </div>
+
+                    <p>We hope to see your name among the selected applicants in the next cycle.</p>
+                    <p>Thank you again for your interest in ACC Learn, and we wish you all the best on your learning
+                        journey. 🚀</p>
+                </div>
             </div>
-            <button class="admission-close" id="closeNotAdmittedPopup">UNDERSTOOD</button>
+
+            <!-- Keep button outside scrollable area -->
+            <div class="popup-button-container">
+                <button class="admission-close" id="closeNotAdmittedPopup">UNDERSTOOD</button>
+            </div>
         </div>
     </div>
 
