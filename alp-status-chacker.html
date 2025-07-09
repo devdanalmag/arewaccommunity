@@ -226,6 +226,69 @@
             background: #ff4d4d;
             color: white;
         }
+
+        .not-admitted .admission-icon {
+            color: #ff6b6b;
+            animation: pulse-slow 3s infinite;
+        }
+
+        .not-admitted .admission-title {
+            color: #ff6b6b;
+        }
+
+        .not-admitted .admission-message {
+            text-align: left;
+            padding: 0 1rem;
+        }
+
+        .alternative-option {
+            display: flex;
+            align-items: flex-start;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(15, 255, 157, 0.05);
+            border-left: 3px solid #0fff9d;
+        }
+
+        .recommendation-box {
+            background: rgba(0, 20, 15, 0.3);
+            border: 1px dashed rgba(0, 255, 157, 0.3);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .recommendation-box h4 {
+            color: #0fff9d;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .hedera-link {
+            color: #0fff9d;
+            display: inline-block;
+            margin: 0.5rem 0;
+            word-break: break-all;
+            text-decoration: none;
+        }
+
+        .hedera-link:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes pulse-slow {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 
@@ -305,15 +368,41 @@
     <div class="admission-popup not-admitted" id="notAdmittedPopup">
         <div class="admission-container">
             <div class="admission-icon">
-                <i class="fas fa-info-circle"></i>
+                <i class="fas fa-heart-broken"></i>
             </div>
-            <h3 class="admission-title">Application Status</h3>
+            <h3 class="admission-title">😔 Application Status</h3>
             <div class="admission-message">
-                <p>Thank you for applying to the ACC Learn Program.</p>
-                <p>We regret to inform you that your application was not successful at this time.</p>
-                <p>Please follow our community channels for future opportunities.</p>
+                <p>Dear <span id="applicantEmail"></span>,</p>
+                <p>Thank you for applying to the ACC Learn Program (ALP) 2025. We truly appreciate your interest and the
+                    effort you put into your application.</p>
+
+                <p><strong>Unfortunately</strong>, due to limited slots and available resources, we were unable to admit
+                    all qualified applicants in this batch.</p>
+
+                <div class="alternative-option">
+                    <i class="fas fa-lightbulb" style="color: #0fff9d; margin-right: 8px;"></i>
+                    <p>We strongly encourage you to stay connected and look out for the next batch of the program, which
+                        will be announced soon.</p>
+                </div>
+
+                <div class="recommendation-box">
+                    <h4>💡 Alternative Opportunity</h4>
+                    <p>Consider joining the Hedera Developer Course — a valuable opportunity to begin building your
+                        skills:</p>
+                    <a href="https://hashgraphdev.com/?code=darACC" target="_blank" class="hedera-link">
+                        <i class="fas fa-external-link-alt"></i> https://hashgraphdev.com/?code=darACC
+                    </a>
+                    <p>Join the Telegram group for the Hedera Developer Program:</p>
+                    <a href="https://t.me/+0a0x66EvG_lkYjk0" target="_blank" class="hedera-link">
+                        <i class="fab fa-telegram"></i> https://t.me/+0a0x66EvG_lkYjk0
+                    </a>
+                </div>
+
+                <p>We hope to see your name among the selected applicants in the next cycle.</p>
+                <p>Thank you again for your interest in ACC Learn, and we wish you all the best on your learning
+                    journey. 🚀</p>
             </div>
-            <button class="admission-close" id="closeNotAdmittedPopup">CLOSE</button>
+            <button class="admission-close" id="closeNotAdmittedPopup">UNDERSTOOD</button>
         </div>
     </div>
 
@@ -372,7 +461,7 @@
         </div>
     </footer>
 
- <script>
+    <script>
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -384,21 +473,21 @@
         });
 
         // Status Check Form Submission - Updated with JSONP
-        document.getElementById('statusForm').addEventListener('submit', function(e) {
+        document.getElementById('statusForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const email = document.getElementById('checkEmail').value.trim();
             const checkBtn = document.getElementById('checkStatusBtn');
-            
+
             if (!email) {
                 alert('Please enter your email address');
                 return;
             }
-            
+
             // Show loading state
             checkBtn.disabled = true;
             checkBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> CHECKING...';
-            
+
             // Use JSONP to fetch data
             checkAdmissionStatus(email)
                 .then(result => {
@@ -409,6 +498,7 @@
                         document.getElementById('admissionPopup').classList.add('active');
                     } else {
                         // Show not admitted popup
+                        document.getElementById('applicantEmail').textContent = email;
                         document.getElementById('notAdmittedPopup').classList.add('active');
                     }
                 })
@@ -430,7 +520,7 @@
                 const scriptUrl = buildStatusCheckUrl(email, callbackName);
 
                 // Create temporary callback function
-                window[callbackName] = function(response) {
+                window[callbackName] = function (response) {
                     cleanup(callbackName);
                     if (response.success) {
                         resolve(response);
@@ -459,20 +549,20 @@
         function buildStatusCheckUrl(email, callback) {
             const baseUrl = 'https://script.google.com/macros/s/AKfycbw6Q3e9FM0CS5ASaN0BHhyAH3zu1FyOWhCzNw7P49G5c_nTKv9eDolBRNtIoMqdm9pF/exec';
             const params = new URLSearchParams();
-            
+
             params.append('action', 'getAdmissions');
             params.append('email', email);
             params.append('callback', callback);
-            
+
             return `${baseUrl}?${params.toString()}`;
         }
 
         // Close popups
-        document.getElementById('closePopup').addEventListener('click', function() {
+        document.getElementById('closePopup').addEventListener('click', function () {
             document.getElementById('admissionPopup').classList.remove('active');
         });
-        
-        document.getElementById('closeNotAdmittedPopup').addEventListener('click', function() {
+
+        document.getElementById('closeNotAdmittedPopup').addEventListener('click', function () {
             document.getElementById('notAdmittedPopup').classList.remove('active');
         });
 
