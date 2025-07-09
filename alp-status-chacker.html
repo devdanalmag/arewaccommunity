@@ -200,9 +200,17 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         /* Not admitted popup */
@@ -254,13 +262,15 @@
             <div class="status-checker">
                 <div class="status-header">
                     <h2 class="status-title">CHECK YOUR APPLICATION STATUS</h2>
-                    <p class="status-subtitle">Enter the email address you used for your ACC Learn Program application to check your admission status</p>
+                    <p class="status-subtitle">Enter the email address you used for your ACC Learn Program application
+                        to check your admission status</p>
                 </div>
 
                 <form id="statusForm" class="status-form">
                     <div class="form-group status-input-group">
                         <label for="checkEmail">EMAIL ADDRESS</label>
-                        <input type="email" id="checkEmail" class="form-control status-input" required placeholder="your@email.com">
+                        <input type="email" id="checkEmail" class="form-control status-input" required
+                            placeholder="your@email.com">
                     </div>
 
                     <button type="submit" class="btn btn-primary status-btn" id="checkStatusBtn">
@@ -283,7 +293,8 @@
                 <p>Dear <span id="admittedEmail"></span>,</p>
                 <p>Congratulations! We're excited to inform you that you have been successfully admitted into the:</p>
                 <div class="admission-course" id="admittedCourse"></div>
-                <p>You were selected from a highly competitive pool of applicants, and we're thrilled to have you join our learning community.</p>
+                <p>You were selected from a highly competitive pool of applicants, and we're thrilled to have you join
+                    our learning community.</p>
                 <p><strong>Check your email immediately for further steps to keep your slot!</strong></p>
             </div>
             <button class="admission-close" id="closePopup">CLOSE</button>
@@ -361,7 +372,7 @@
         </div>
     </footer>
 
-    <script>
+ <script>
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -372,8 +383,8 @@
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
 
-        // Status Check Form Submission
-        document.getElementById('statusForm').addEventListener('submit', async function(e) {
+        // Status Check Form Submission - Updated with JSONP
+        document.getElementById('statusForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const email = document.getElementById('checkEmail').value.trim();
@@ -388,43 +399,73 @@
             checkBtn.disabled = true;
             checkBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> CHECKING...';
             
-            try {
-                // Fetch data from Google Sheets
-                const response = await fetch('https://script.google.com/macros/s/AKfycbzuE-tpXHIR_6oaAsZ9KQZwdfmDrzaLScdtBR5AF6OzIPWngLue2yMIdU75VdoeAE-x/exec?action=getAdmissions');
-                const data = await response.json();
-                
-                // Check if email exists in any course
-                let admittedCourse = null;
-                
-                // Loop through all courses to find the email
-                for (const course in data) {
-                    if (data[course].includes(email)) {
-                        admittedCourse = course;
-                        break;
+            // Use JSONP to fetch data
+            checkAdmissionStatus(email)
+                .then(result => {
+                    if (result.course) {
+                        // Show admission popup
+                        document.getElementById('admittedEmail').textContent = email;
+                        document.getElementById('admittedCourse').textContent = result.course;
+                        document.getElementById('admissionPopup').classList.add('active');
+                    } else {
+                        // Show not admitted popup
+                        document.getElementById('notAdmittedPopup').classList.add('active');
                     }
-                }
-                
-                if (admittedCourse) {
-                    // Show admission popup
-                    document.getElementById('admittedEmail').textContent = email;
-                    document.getElementById('admittedCourse').textContent = admittedCourse;
-                    document.getElementById('admissionPopup').classList.add('active');
-                    
-                    // Send congratulatory email (via your backend)
-                    await sendAdmissionEmail(email, admittedCourse);
-                } else {
-                    // Show not admitted popup
-                    document.getElementById('notAdmittedPopup').classList.add('active');
-                }
-            } catch (error) {
-                console.error('Error checking status:', error);
-                alert('An error occurred while checking your status. Please try again.');
-            } finally {
-                // Reset button state
-                checkBtn.disabled = false;
-                checkBtn.innerHTML = '<i class="fas fa-search"></i> CHECK STATUS';
-            }
+                })
+                .catch(error => {
+                    console.error('Error checking status:', error);
+                    alert('An error occurred while checking your status. Please try again.');
+                })
+                .finally(() => {
+                    // Reset button state
+                    checkBtn.disabled = false;
+                    checkBtn.innerHTML = '<i class="fas fa-search"></i> CHECK STATUS';
+                });
         });
+
+        // JSONP function to check admission status
+        function checkAdmissionStatus(email) {
+            return new Promise((resolve, reject) => {
+                const callbackName = 'jsonp_callback_' + Date.now();
+                const scriptUrl = buildStatusCheckUrl(email, callbackName);
+
+                // Create temporary callback function
+                window[callbackName] = function(response) {
+                    cleanup(callbackName);
+                    if (response.success) {
+                        resolve(response);
+                    } else {
+                        reject(new Error(response.error || 'Status check failed'));
+                    }
+                };
+
+                // Create and inject script tag
+                const script = document.createElement('script');
+                script.src = scriptUrl;
+                script.onerror = () => {
+                    cleanup(callbackName);
+                    reject(new Error('Network error'));
+                };
+                document.body.appendChild(script);
+
+                // Cleanup function
+                function cleanup(callback) {
+                    delete window[callback];
+                    document.body.removeChild(script);
+                }
+            });
+        }
+
+        function buildStatusCheckUrl(email, callback) {
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbw6Q3e9FM0CS5ASaN0BHhyAH3zu1FyOWhCzNw7P49G5c_nTKv9eDolBRNtIoMqdm9pF/exec';
+            const params = new URLSearchParams();
+            
+            params.append('action', 'getAdmissions');
+            params.append('email', email);
+            params.append('callback', callback);
+            
+            return `${baseUrl}?${params.toString()}`;
+        }
 
         // Close popups
         document.getElementById('closePopup').addEventListener('click', function() {
@@ -435,28 +476,11 @@
             document.getElementById('notAdmittedPopup').classList.remove('active');
         });
 
-        // Function to send admission email (would call your backend)
-        async function sendAdmissionEmail(email, course) {
-            try {
-                const response = await fetch('api/send-admission-email', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        course: course
-                    }),
-                });
-                
-                const result = await response.json();
-                if (!result.success) {
-                    console.error('Failed to send email:', result.error);
-                }
-            } catch (error) {
-                console.error('Error sending email:', error);
-            }
-        }
+        // Google Apps Script should be modified to handle JSONP:
+        /*
+        
+        */
     </script>
 </body>
+
 </html>
