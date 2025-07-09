@@ -491,15 +491,18 @@
             // Use JSONP to fetch data
             checkAdmissionStatus(email)
                 .then(result => {
-                    if (result.course) {
+                    if (result.success && result.course) {
                         // Show admission popup
                         document.getElementById('admittedEmail').textContent = email;
                         document.getElementById('admittedCourse').textContent = result.course;
                         document.getElementById('admissionPopup').classList.add('active');
-                    } else {
-                        // Show not admitted popup
+                    } else if (result.success && !result.course) {
+                        // Email was checked but not found - show not admitted popup
                         document.getElementById('applicantEmail').textContent = email;
                         document.getElementById('notAdmittedPopup').classList.add('active');
+                    } else {
+                        // Actual error case
+                        throw new Error(result.error || 'Status check failed');
                     }
                 })
                 .catch(error => {
@@ -512,7 +515,6 @@
                     checkBtn.innerHTML = '<i class="fas fa-search"></i> CHECK STATUS';
                 });
         });
-
         // JSONP function to check admission status
         function checkAdmissionStatus(email) {
             return new Promise((resolve, reject) => {
@@ -547,7 +549,7 @@
         }
 
         function buildStatusCheckUrl(email, callback) {
-            const baseUrl = 'https://script.google.com/macros/s/AKfycbw6Q3e9FM0CS5ASaN0BHhyAH3zu1FyOWhCzNw7P49G5c_nTKv9eDolBRNtIoMqdm9pF/exec';
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbzeXYt0z_p6ZfviorxUc7E1NFCHsZEzAHKc-7p24OEU1aWGiqnLF9V0IgEY1Xk2GhXX/exec';
             const params = new URLSearchParams();
 
             params.append('action', 'getAdmissions');
