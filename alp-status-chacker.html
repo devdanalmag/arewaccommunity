@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check your ACC Learn Program application status">
+    <title>ACC Learn Program Status Check | Arewa Crypto Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="imgs/icon.png" type="image/png">
+    <link rel="stylesheet" href="css/registrationform.css">
+    <style>
+        /* Additional styles for status checker */
+        .status-checker {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(0, 20, 15, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-checker::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #0fff9d, #00ffc8);
+            z-index: -1;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        .status-checker:hover::before {
+            opacity: 0.3;
+        }
+
+        .status-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .status-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #0fff9d, #00ffc8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-subtitle {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .status-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .status-input-group {
+            position: relative;
+        }
+
+        .status-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 10, 8, 0.7);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .status-input:focus {
+            outline: none;
+            border-color: #0fff9d;
+            box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.2);
+        }
+
+        .status-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #0fff9d, #00ffc8);
+            color: #000908;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-transform: uppercase;
+            box-shadow: 0 5px 25px rgba(15, 255, 157, 0.5);
+        }
+
+        .status-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(15, 255, 157, 0.7);
+        }
+
+        .status-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Admission Popup Styles */
+        .admission-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 8, 8, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .admission-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .admission-container {
+            background: #001a0f;
+            border: 1px solid #0fff9d;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 0 30px rgba(15, 255, 157, 0.3);
+            text-align: center;
+        }
+
+        .admission-icon {
+            font-size: 4rem;
+            color: #0fff9d;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .admission-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: #0fff9d;
+            margin-bottom: 1rem;
+        }
+
+        .admission-message {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .admission-course {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(15, 255, 157, 0.1);
+            border: 1px solid #0fff9d;
+            border-radius: 50px;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+
+        .admission-close {
+            background: #0fff9d;
+            color: #001a0f;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admission-close:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(15, 255, 157, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Not admitted popup */
+        .not-admitted .admission-icon {
+            color: #ff4d4d;
+        }
+
+        .not-admitted .admission-title {
+            color: #ff4d4d;
+        }
+
+        .not-admitted .admission-close {
+            background: #ff4d4d;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Quantum Grid Background -->
+    <div class="quantum-grid"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="imgs/icon.png" alt="ACC Logo" class="logo-img">
+                <span>A.</span>C.C <span></span>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home">HOME</a></li>
+                <li><a href="index.html#mission">MISSION</a></li>
+                <li><a href="index.html#features">FEATURES</a></li>
+                <li><a href="index.html#events">EVENTS</a></li>
+                <li><a href="index.html#join">JOIN</a></li>
+                <li><a href="pfp-maker.html">PFP MAKER</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Status Check Section -->
+    <section class="registration">
+        <div class="registration-container">
+            <div class="status-checker">
+                <div class="status-header">
+                    <h2 class="status-title">CHECK YOUR APPLICATION STATUS</h2>
+                    <p class="status-subtitle">Enter the email address you used for your ACC Learn Program application to check your admission status</p>
+                </div>
+
+                <form id="statusForm" class="status-form">
+                    <div class="form-group status-input-group">
+                        <label for="checkEmail">EMAIL ADDRESS</label>
+                        <input type="email" id="checkEmail" class="form-control status-input" required placeholder="your@email.com">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary status-btn" id="checkStatusBtn">
+                        <i class="fas fa-search"></i> CHECK STATUS
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admission Popup -->
+    <div class="admission-popup" id="admissionPopup">
+        <div class="admission-container">
+            <div class="admission-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h3 class="admission-title">🎉 Congratulations!</h3>
+            <div class="admission-message">
+                <p>You're Admitted into the ACC Learn Program (ALP) 2025</p>
+                <p>Dear <span id="admittedEmail"></span>,</p>
+                <p>Congratulations! We're excited to inform you that you have been successfully admitted into the:</p>
+                <div class="admission-course" id="admittedCourse"></div>
+                <p>You were selected from a highly competitive pool of applicants, and we're thrilled to have you join our learning community.</p>
+                <p><strong>Check your email immediately for further steps to keep your slot!</strong></p>
+            </div>
+            <button class="admission-close" id="closePopup">CLOSE</button>
+        </div>
+    </div>
+
+    <!-- Not Admitted Popup -->
+    <div class="admission-popup not-admitted" id="notAdmittedPopup">
+        <div class="admission-container">
+            <div class="admission-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h3 class="admission-title">Application Status</h3>
+            <div class="admission-message">
+                <p>Thank you for applying to the ACC Learn Program.</p>
+                <p>We regret to inform you that your application was not successful at this time.</p>
+                <p>Please follow our community channels for future opportunities.</p>
+            </div>
+            <button class="admission-close" id="closeNotAdmittedPopup">CLOSE</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <span>A</span>CC
+                </div>
+                <p class="footer-about">
+                    The Arewa Crypto Community is empowering Northern Nigeria through blockchain education and
+                    innovation, creating opportunities in the Web3 economy.
+                </p>
+                <div class="footer-social">
+                    <a href="https://discord.gg/XhRHPaXB" target="_blank" class="footer-social-link"><i
+                            class="fab fa-discord"></i></a>
+                    <a href="https://t.me/acccommunitychannel" target="_blank" class="footer-social-link"><i
+                            class="fab fa-telegram"></i></a>
+                    <a href="https://x.com/acc_community" target="_blank" class="footer-social-link"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">QUICK LINKS</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#mission">Our Mission</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#events">Events</a></li>
+                    <li><a href="index.html#join">Join Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">RESOURCES</h3>
+                <ul class="footer-links">
+                    <li><a href="pfp-maker.html">PFP Maker</a></li>
+                    <li><a href="#">ACC Learn Program</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">CONTACT US</h3>
+                <ul class="footer-links">
+                    <li><a href="https://x.com/acc_community" target="_blank">Twitter</a></li>
+                    <li><a href="https://t.me/acccommunitychannel" target="_blank">Telegram</a></li>
+                    <li><a href="https://discord.gg/XhRHPaXB" target="_blank">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AREWA CRYPTO COMMUNITY. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Status Check Form Submission
+        document.getElementById('statusForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('checkEmail').value.trim();
+            const checkBtn = document.getElementById('checkStatusBtn');
+            
+            if (!email) {
+                alert('Please enter your email address');
+                return;
+            }
+            
+            // Show loading state
+            checkBtn.disabled = true;
+            checkBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> CHECKING...';
+            
+            try {
+                // Fetch data from Google Sheets
+                const response = await fetch('https://script.google.com/macros/s/AKfycbzuE-tpXHIR_6oaAsZ9KQZwdfmDrzaLScdtBR5AF6OzIPWngLue2yMIdU75VdoeAE-x/exec?action=getAdmissions');
+                const data = await response.json();
+                
+                // Check if email exists in any course
+                let admittedCourse = null;
+                
+                // Loop through all courses to find the email
+                for (const course in data) {
+                    if (data[course].includes(email)) {
+                        admittedCourse = course;
+                        break;
+                    }
+                }
+                
+                if (admittedCourse) {
+                    // Show admission popup
+                    document.getElementById('admittedEmail').textContent = email;
+                    document.getElementById('admittedCourse').textContent = admittedCourse;
+                    document.getElementById('admissionPopup').classList.add('active');
+                    
+                    // Send congratulatory email (via your backend)
+                    await sendAdmissionEmail(email, admittedCourse);
+                } else {
+                    // Show not admitted popup
+                    document.getElementById('notAdmittedPopup').classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error checking status:', error);
+                alert('An error occurred while checking your status. Please try again.');
+            } finally {
+                // Reset button state
+                checkBtn.disabled = false;
+                checkBtn.innerHTML = '<i class="fas fa-search"></i> CHECK STATUS';
+            }
+        });
+
+        // Close popups
+        document.getElementById('closePopup').addEventListener('click', function() {
+            document.getElementById('admissionPopup').classList.remove('active');
+        });
+        
+        document.getElementById('closeNotAdmittedPopup').addEventListener('click', function() {
+            document.getElementById('notAdmittedPopup').classList.remove('active');
+        });
+
+        // Function to send admission email (would call your backend)
+        async function sendAdmissionEmail(email, course) {
+            try {
+                const response = await fetch('api/send-admission-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        course: course
+                    }),
+                });
+                
+                const result = await response.json();
+                if (!result.success) {
+                    console.error('Failed to send email:', result.error);
+                }
+            } catch (error) {
+                console.error('Error sending email:', error);
+            }
+        }
+    </script>
+</body>
+</html>
