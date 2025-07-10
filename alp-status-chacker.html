@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="icon" href="imgs/icon.png" type="image/png">
+    <link rel="icon" href="imgs/favicon.png" type="image/png">
     <link rel="stylesheet" href="css/registrationform.css">
     <style>
         /* Additional styles for status checker */
@@ -329,6 +329,158 @@
             padding-top: 15px;
             border-top: 1px solid rgba(0, 255, 157, 0.2);
         }
+
+        /* Applicants Modal Styles */
+        .applicants-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 8, 8, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .applicants-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .applicants-container {
+            background: #001a0f;
+            border: 1px solid #0fff9d;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(15, 255, 157, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .applicants-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+        }
+
+        .applicants-header h3 {
+            color: #0fff9d;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #0fff9d;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            background: rgba(0, 10, 8, 0.7);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .total-applicants {
+            background: rgba(15, 255, 157, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .table-container {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgba(0, 255, 157, 0.1);
+            color: #0fff9d;
+            padding: 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        tr:hover {
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        .table-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 255, 157, 0.2);
+        }
+
+        .table-pagination button {
+            background: rgba(15, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            color: #0fff9d;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .table-pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .applicants-container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .search-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -340,7 +492,7 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="imgs/icon.png" alt="ACC Logo" class="logo-img">
+                <img src="imgs/favicon.png" alt="ACC Logo" class="logo-img">
                 <span>A.</span>C.C <span></span>
             </a>
 
@@ -379,11 +531,54 @@
                     <button type="submit" class="btn btn-primary status-btn" id="checkStatusBtn">
                         <i class="fas fa-search"></i> CHECK STATUS
                     </button>
+                    <!-- Add this button near the status check form -->
+                    <button id="showApplicantsBtn" class="btn btn-primary" style="margin: 20px auto; display: block;">
+                        <i class="fas fa-list"></i> VIEW ALL APPLICANTS
+                    </button>
                 </form>
             </div>
         </div>
     </section>
+    <div class="applicants-modal" id="applicantsModal">
+        <div class="applicants-container">
+            <div class="applicants-header">
+                <h3><i class="fas fa-users"></i> APPLICANTS LIST</h3>
+                <button class="close-modal" id="closeApplicantsModal">&times;</button>
+            </div>
 
+            <div class="search-container">
+                <input type="text" id="applicantSearch" class="search-input"
+                    placeholder="Search by name, email, or course...">
+                <div class="total-applicants" id="totalApplicants">Loading total applicants...</div>
+            </div>
+
+            <div class="table-container">
+                <table id="applicantsTable">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>X Username</th>
+                            <th>Course</th>
+                            <th>Applied On</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicantsTableBody">
+                        <!-- Data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-footer">
+                <div class="table-info" id="tableInfo">Loading data...</div>
+                <div class="table-pagination">
+                    <button id="prevPage" disabled><i class="fas fa-chevron-left"></i></button>
+                    <span id="pageInfo">Page 1</span>
+                    <button id="nextPage"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Admission Popup -->
     <div class="admission-popup" id="admissionPopup">
         <div class="admission-container">
@@ -625,10 +820,228 @@
             document.getElementById('notAdmittedPopup').classList.remove('active');
         });
 
-        // Google Apps Script should be modified to handle JSONP:
-        /*
+        // Add these variables at the top of your script
+        const applicantsModal = document.getElementById('applicantsModal');
+        const showApplicantsBtn = document.getElementById('showApplicantsBtn');
+        const closeApplicantsModal = document.getElementById('closeApplicantsModal');
+        const applicantsTableBody = document.getElementById('applicantsTableBody');
+        const applicantSearch = document.getElementById('applicantSearch');
+        const prevPageBtn = document.getElementById('prevPage');
+        const nextPageBtn = document.getElementById('nextPage');
+        const pageInfo = document.getElementById('pageInfo');
+        const tableInfo = document.getElementById('tableInfo');
+        const totalApplicants = document.getElementById('totalApplicants');
+
+        let currentPage = 1;
+        const rowsPerPage = 10;
+        let allApplicants = [];
+        let filteredApplicants = [];
+
+        // Modal toggle
+        showApplicantsBtn.addEventListener('click', () => {
+            applicantsModal.classList.add('active');
+            loadApplicantsData();
+        });
+
+        closeApplicantsModal.addEventListener('click', () => {
+            applicantsModal.classList.remove('active');
+        });
+
+        // Load applicants data
+        async function loadApplicantsData() {
+            try {
+                // Show loading state
+                applicantsTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">Loading data...</td></tr>';
+
+                // Load data from Google Sheets
+                const data = await fetchApplicantsData();
+                allApplicants = data.applicants;
+                filteredApplicants = [...allApplicants];
+
+                // Update total count
+                totalApplicants.textContent = `Total Applicants: ${data.total || allApplicants.length}`;
+
+                // Render table
+                renderTable();
+            } catch (error) {
+                console.error('Error loading applicants:', error);
+                applicantsTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px; color: #ff6b6b;">Error loading data. Please try again.</td></tr>';
+            }
+        }
+
+function maskEmail(email) {
+    if (!email) return '-';
+    const [name, domain] = email.split('@');
+    if (name.length <= 2) return `${name[0]}...@${domain}`;
+    return `${name[0]}...${name.slice(-1)}@${domain}`;
+}
+
+// Update the fetchApplicantsData function
+function fetchApplicantsData() {
+    return new Promise((resolve, reject) => {
+        const callbackName = 'jsonp_callback_' + Date.now();
+        const scriptUrl = `https://script.google.com/macros/s/AKfycbwY3NIYNuZkPquN413FhwYP5tmg7u84jnay-gfsoZcPuBKH_yuW5UpGmg9ajPZNpM5R/exec?action=getApplicants&callback=${callbackName}`;
         
-        */
+        window[callbackName] = function(response) {
+            cleanup(callbackName);
+            if (response.success) {
+                resolve(response.data);
+            } else {
+                reject(new Error(response.error));
+            }
+        };
+        
+        const script = document.createElement('script');
+        script.src = scriptUrl;
+        script.onerror = () => {
+            cleanup(callbackName);
+            reject(new Error('Network error'));
+        };
+        document.body.appendChild(script);
+        
+        function cleanup(callback) {
+            delete window[callback];
+            document.body.removeChild(script);
+        }
+    });
+}
+
+        // Render table with pagination
+        function renderTable() {
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const pageData = filteredApplicants.slice(start, end);
+
+            if (pageData.length === 0) {
+                applicantsTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">No matching applicants found</td></tr>';
+            } else {
+                applicantsTableBody.innerHTML = pageData.map((applicant, index) => `
+                <tr>
+                    <td>${start + index + 1}</td>
+                    <td>${applicant.name || '-'}</td>
+                    <td>${applicant.email}</td>
+                    <td>${applicant.course || '-'}</td>
+                    <td>${applicant.username || '-'}</td>
+                    <td>${applicant.timestamp || '-'}</td>
+                </tr>
+            `).join('');
+            }
+
+            // Update pagination controls
+            pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(filteredApplicants.length / rowsPerPage)}`;
+            prevPageBtn.disabled = currentPage === 1;
+            nextPageBtn.disabled = currentPage === Math.ceil(filteredApplicants.length / rowsPerPage);
+
+            // Update table info
+            tableInfo.textContent = `Showing ${start + 1}-${Math.min(end, filteredApplicants.length)} of ${filteredApplicants.length} applicants`;
+        }
+
+// Update the renderTable function
+function renderTable() {
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const pageData = filteredApplicants.slice(start, end);
+    
+    if (pageData.length === 0) {
+        applicantsTableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No matching applicants found</td></tr>';
+    } else {
+        applicantsTableBody.innerHTML = pageData.map((applicant, index) => `
+            <tr>
+                <td>${start + index + 1}</td>
+                <td>${applicant.twitter || applicant.telegram || applicant.discord || '-'}</td>
+                <td>${applicant.course || '-'}</td>
+                <td>${formatTimestamp(applicant.timestamp)}</td>
+                <td>${maskEmail(applicant.email)}</td>
+            </tr>
+        `).join('');
+    }
+    
+    // Update pagination and info
+    updatePagination();
+}
+// Add this function to your existing script
+function updatePagination() {
+    const totalPages = Math.ceil(filteredApplicants.length / rowsPerPage);
+    
+    // Update page info
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    
+    // Update button states
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+    
+    // Update table info
+    const start = (currentPage - 1) * rowsPerPage + 1;
+    const end = Math.min(currentPage * rowsPerPage, filteredApplicants.length);
+    tableInfo.textContent = `Showing ${start}-${end} of ${filteredApplicants.length} applicants`;
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', handleKeyboardNavigation);
+}
+
+// Add keyboard navigation support
+function handleKeyboardNavigation(e) {
+    if (!applicantsModal.classList.contains('active')) return;
+    
+    if (e.key === 'ArrowRight' && !nextPageBtn.disabled) {
+        currentPage++;
+        renderTable();
+    } else if (e.key === 'ArrowLeft' && !prevPageBtn.disabled) {
+        currentPage--;
+        renderTable();
+    }
+}
+
+// Don't forget to clean up the event listener when modal closes
+closeApplicantsModal.addEventListener('click', () => {
+    document.removeEventListener('keydown', handleKeyboardNavigation);
+    applicantsModal.classList.remove('active');
+});
+// Add timestamp formatting
+function formatTimestamp(timestamp) {
+    if (!timestamp) return '-';
+    const date = new Date(timestamp);
+    return date.toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+// Update the search functionality
+applicantSearch.addEventListener('input', () => {
+    const searchTerm = applicantSearch.value.toLowerCase();
+    
+    if (searchTerm) {
+        filteredApplicants = allApplicants.filter(applicant => 
+            (applicant.twitter && applicant.twitter.toLowerCase().includes(searchTerm)) ||
+            (applicant.course && applicant.course.toLowerCase().includes(searchTerm)) ||
+            (applicant.email && applicant.email.toLowerCase().includes(searchTerm))
+        );
+    } else {
+        filteredApplicants = [...allApplicants];
+    }
+    
+    currentPage = 1;
+    renderTable();
+});
+
+        // Pagination controls
+        prevPageBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+
+        nextPageBtn.addEventListener('click', () => {
+            if (currentPage < Math.ceil(filteredApplicants.length / rowsPerPage)) {
+                currentPage++;
+                renderTable();
+            }
+        });
     </script>
 </body>
 

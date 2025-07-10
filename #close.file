@@ -12,7 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <link rel="icon" href="imgs/icon.png" type="image/png">
+    <link rel="icon" href="imgs/favicon.png" type="image/png">
     <link rel="stylesheet" href="css/registrationform.css">
     <!-- <script src="js/registrationform.js"></script> -->
 </head>
@@ -25,7 +25,7 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="imgs/icon.png" alt="ACC Logo" class="logo-img">
+                <img src="imgs/favicon.png" alt="ACC Logo" class="logo-img">
                 <span>A.</span>C.C <span></span>
             </a>
 
