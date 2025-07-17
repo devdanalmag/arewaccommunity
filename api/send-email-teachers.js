@@ -56,6 +56,7 @@ export default async function handler(req, res) {
         .email-container {
             max-width: 650px;
             margin: 20px auto;
+            background-color: var(--deep-space);
             border: 1px solid var(--neon-green);
             border-radius: 8px;
             overflow: hidden;
