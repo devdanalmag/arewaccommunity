@@ -46,8 +46,8 @@ export default async function handler(req, res) {
         
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: #f5f5f5;
-            color: #333333;
+            background-color: var(--deep-space);
+            color: #EEE;
             line-height: 1.6;
             margin: 0;
             padding: 0;
@@ -56,7 +56,6 @@ export default async function handler(req, res) {
         .email-container {
             max-width: 650px;
             margin: 20px auto;
-            background-color: rgba(0, 20, 15, 0.8);
             border: 1px solid var(--neon-green);
             border-radius: 8px;
             overflow: hidden;
