@@ -61,6 +61,8 @@ export default async function handler(req, res) {
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 0 30px rgba(15, 255, 157, 0.2);
+            Z-index: 0;
+            position: relative;
         }
         
         .header {
