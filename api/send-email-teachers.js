@@ -46,8 +46,8 @@ export default async function handler(req, res) {
         
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: #EEE;
-            color: #EEE;
+            background-color: #f5f5f5;
+            color: #333333;
             line-height: 1.6;
             margin: 0;
             padding: 0;
