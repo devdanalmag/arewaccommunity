@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ACC Learn Program - A comprehensive Web3 education program by Arewa Crypto Community">
+    <title>ACC Learn Program | Arewa Crypto Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="imgs/favicon.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/registrationform.css">
+    <style>
+        .alp-section {
+            padding: 9rem 0;
+            position: relative;
+        }
+
+        .alp-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .alp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .alp-card {
+            background: rgba(0, 20, 15, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            transition: all 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alp-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-green);
+            box-shadow: 0 10px 30px rgba(15, 255, 157, 0.2);
+        }
+
+        .alp-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-primary);
+            z-index: -1;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .alp-card:hover::before {
+            opacity: 0.3;
+        }
+
+        .alp-card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+
+        .alp-card-content {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .alp-card-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .alp-card-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .alp-card-list li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--neon-green);
+        }
+
+        .alp-btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .alp-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alp-btn-primary {
+            background: var(--gradient-primary);
+            color: var(--void-black);
+        }
+
+        .alp-btn-secondary {
+            background: transparent;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+        }
+
+        .alp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(15, 255, 157, 0.3);
+        }
+
+        .teacher-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .teacher-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--neon-green);
+            padding: 5px;
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .teacher-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .teacher-course {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .teacher-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .teacher-social a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .teacher-social a:hover {
+            color: var(--neon-green);
+        }
+
+        .bot-features {
+            margin-top: 2rem;
+        }
+
+        .bot-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 255, 157, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .bot-feature:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateX(5px);
+        }
+
+        .bot-feature i {
+            color: var(--neon-green);
+            font-size: 1.5rem;
+        }
+
+        .bot-feature-content h4 {
+            margin: 0 0 0.5rem;
+            color: var(--neon-green);
+        }
+
+        .bot-feature-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .alp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .alp-btn-group {
+                flex-direction: column;
+            }
+
+            .alp-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Quantum Grid Background -->
+    <div class="quantum-grid"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="imgs/icon.png" alt="ACC Logo" class="logo-img">
+                <span>A.</span>C.C <span></span>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home">HOME</a></li>
+                <li><a href="alp-program.html" class="nav-link">ALP PROGRAM <span class="new-indicator"
+                            title="New Program!">NEW</span>
+                    </a></li>
+                <li><a href="index.html#mission">MISSION</a></li>
+                <li><a href="index.html#features">FEATURES</a></li>
+                <li><a href="index.html#events">EVENTS</a></li>
+                <li><a href="index.html#join">JOIN</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="alp-section">
+            <div class="alp-container">
+                <h1 class="section-title">ACC LEARN PROGRAM</h1>
+                <p class="section-subtitle">Empowering the next generation of Web3 innovators through comprehensive education and hands-on experience.</p>
+
+                <div class="alp-grid">
+                    <!-- Program Overview -->
+                    <div class="alp-card">
+                        <h3 class="alp-card-title">🎓 Program Overview</h3>
+                        <div class="alp-card-content">
+                            <p>The ACC Learn Program (ALP) is a structured educational initiative designed to introduce participants to the world of Web3 and blockchain technology.</p>
+                            <ul class="alp-card-list">
+                                <li>Expert-led courses</li>
+                                <li>Hands-on projects</li>
+                                <li>Community support</li>
+                                <li>Career guidance</li>
+                            </ul>
+                        </div>
+                        <div class="alp-btn-group">
+                            <a href="alp-form.html" class="alp-btn alp-btn-primary">
+                                <i class="fas fa-user-plus"></i> Apply Now
+                            </a>
+                            <a href="alp-status-chacker.html" class="alp-btn alp-btn-secondary">
+                                <i class="fas fa-search"></i> Check Status
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Available Courses -->
+                    <div class="alp-card">
+                        <h3 class="alp-card-title">📚 Available Courses</h3>
+                        <div class="alp-card-content">
+                            <ul class="alp-card-list">
+                                <li>Basics in Artificial Intelligence (AI)</li>
+                                <li>Token & NFT Development</li>
+                                <li>Telegram Mini-App Development</li>
+                                <li>Graphics Design</li>
+                                <li>Content Creation</li>
+                                <li>Web3 Job Skills</li>
+                                <li>Airdrop Hunting</li>
+                                <li>Crypto Trading</li>
+                            </ul>
+                        </div>
+                        <div class="alp-btn-group">
+                            <a href="alp-teachers-form.html" class="alp-btn alp-btn-secondary">
+                                <i class="fas fa-chalkboard-teacher"></i> Become a Teacher
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Attendance Bot -->
+                    <div class="alp-card">
+                        <h3 class="alp-card-title">🤖 Attendance Bot</h3>
+                        <div class="alp-card-content">
+                            <p>Our smart attendance tracking system ensures seamless class participation monitoring.</p>
+                            <div class="bot-features">
+                                <div class="bot-feature">
+                                    <i class="fas fa-clock"></i>
+                                    <div class="bot-feature-content">
+                                        <h4>Automated Timing</h4>
+                                        <p>Precise tracking of sign-in and sign-out times</p>
+                                    </div>
+                                </div>
+                                <div class="bot-feature">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <div class="bot-feature-content">
+                                        <h4>Secure Verification</h4>
+                                        <p>Unique hash generation for attendance validation</p>
+                                    </div>
+                                </div>
+                                <div class="bot-feature">
+                                    <i class="fas fa-bell"></i>
+                                    <div class="bot-feature-content">
+                                        <h4>Smart Reminders</h4>
+                                        <p>Automated notifications for class schedules</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teachers Section -->
+        <section class="alp-section" style="background: rgba(0, 10, 8, 0.7);">
+            <div class="alp-container">
+                <h2 class="section-title">Our Teachers</h2>
+                <p class="section-subtitle">Meet our expert instructors who are passionate about sharing their knowledge and experience.</p>
+                <div class="teacher-carousel-wrapper">
+                    <button class="carousel-arrow left" id="teacherPrevBtn" aria-label="Previous Teacher">&#60;</button>
+                    <div class="alp-grid teacher-carousel" id="teacherCarousel">
+                        <!-- Teacher cards here (same as before, but only one visible at a time) -->
+                        <!-- All teacher cards will be rendered, but only the active one will be shown -->
+                        <div class="alp-card teacher-card">
+                            <div class="teacher-avatar">
+                                <img src="imgs/icon.png" alt="Teacher" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            </div>
+                            <h4 class="teacher-name">Dev. Abdulmajeed</h4>
+                            <p class="teacher-course">Telegram Mini-App Development</p>
+                            <div class="teacher-social">
+                                <a href="https://t.me/Thedevdanalmag" target="_blank"><i class="fab fa-telegram"></i></a>
+                                <a href="https://twitter.com/devdanalmag" target="_blank"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                        <div class="alp-card teacher-card">
+                            <div class="teacher-avatar">
+                                <img src="imgs/acc3d1.png" alt="Teacher" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            </div>
+                            <h4 class="teacher-name">Aisha Bello</h4>
+                            <p class="teacher-course">Basics in Artificial Intelligence (AI)</p>
+                            <div class="teacher-social">
+                                <a href="https://t.me/aishabello" target="_blank"><i class="fab fa-telegram"></i></a>
+                                <a href="https://twitter.com/aisha_ai" target="_blank"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                        <div class="alp-card teacher-card">
+                            <div class="teacher-avatar">
+                                <img src="imgs/acc3d2.png" alt="Teacher" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            </div>
+                            <h4 class="teacher-name">Musa Garba</h4>
+                            <p class="teacher-course">Token & NFT Development</p>
+                            <div class="teacher-social">
+                                <a href="https://t.me/musagarba" target="_blank"><i class="fab fa-telegram"></i></a>
+                                <a href="https://twitter.com/musa_nft" target="_blank"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                        <div class="alp-card teacher-card">
+                            <div class="teacher-avatar">
+                                <img src="imgs/acc3d3.jpg" alt="Teacher" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            </div>
+                            <h4 class="teacher-name">Fatima Sani</h4>
+                            <p class="teacher-course">Graphics Design</p>
+                            <div class="teacher-social">
+                                <a href="https://t.me/fatimasani" target="_blank"><i class="fab fa-telegram"></i></a>
+                                <a href="https://twitter.com/fatima_design" target="_blank"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                        <div class="alp-card teacher-card">
+                            <div class="teacher-avatar">
+                                <img src="imgs/acc-mission.png" alt="Teacher" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            </div>
+                            <h4 class="teacher-name">Ahmed Yusuf</h4>
+                            <p class="teacher-course">Content Creation</p>
+                            <div class="teacher-social">
+                                <a href="https://t.me/ahmedyusuf" target="_blank"><i class="fab fa-telegram"></i></a>
+                                <a href="https://twitter.com/ahmed_content" target="_blank"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                        <div class="alp-card teacher-card">
+                            <div class="teacher-avatar">
+                                <img src="imgs/acc3d.png" alt="Teacher" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            </div>
+                            <h4 class="teacher-name">Zainab Lawal</h4>
+                            <p class="teacher-course">Web3 Job Skills</p>
+                            <div class="teacher-social">
+                                <a href="https://t.me/zainablawal" target="_blank"><i class="fab fa-telegram"></i></a>
+                                <a href="https://twitter.com/zainab_web3" target="_blank"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow right" id="teacherNextBtn" aria-label="Next Teacher">&#62;</button>
+                </div>
+            </div>
+        </section>
+        <style>
+            .teacher-carousel-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+            .teacher-carousel {
+                display: flex;
+                width: 350px;
+                overflow: hidden;
+                position: relative;
+            }
+            .teacher-card {
+                min-width: 100%;
+                transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1), opacity 0.5s;
+                opacity: 0;
+                pointer-events: none;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            .teacher-card.active {
+                opacity: 1;
+                pointer-events: auto;
+                position: relative;
+                z-index: 2;
+                transform: translateX(0);
+            }
+            .carousel-arrow {
+                background: rgba(0,255,157,0.1);
+                border: 2px solid var(--neon-green);
+                color: var(--neon-green);
+                font-size: 2rem;
+                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.3s, color 0.3s;
+            }
+            .carousel-arrow:hover {
+                background: var(--neon-green);
+                color: var(--void-black);
+            }
+            @media (max-width: 600px) {
+                .teacher-carousel {
+                    width: 90vw;
+                }
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const cards = document.querySelectorAll('.teacher-card');
+                const prevBtn = document.getElementById('teacherPrevBtn');
+                const nextBtn = document.getElementById('teacherNextBtn');
+                let current = 0;
+                let autoSlideInterval;
+
+                function showCard(idx) {
+                    cards.forEach((card, i) => {
+                        card.classList.remove('active');
+                        if (i === idx) {
+                            card.classList.add('active');
+                        }
+                    });
+                }
+
+                function nextCard() {
+                    current = (current + 1) % cards.length;
+                    showCard(current);
+                }
+
+                function prevCard() {
+                    current = (current - 1 + cards.length) % cards.length;
+                    showCard(current);
+                }
+
+                function startAutoSlide() {
+                    autoSlideInterval = setInterval(nextCard, 5000);
+                }
+
+                function stopAutoSlide() {
+                    clearInterval(autoSlideInterval);
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    prevCard();
+                    stopAutoSlide();
+                    startAutoSlide();
+                });
+                nextBtn.addEventListener('click', () => {
+                    nextCard();
+                    stopAutoSlide();
+                    startAutoSlide();
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        prevCard();
+                        stopAutoSlide();
+                        startAutoSlide();
+                    } else if (e.key === 'ArrowRight') {
+                        nextCard();
+                        stopAutoSlide();
+                        startAutoSlide();
+                    }
+                });
+                showCard(current);
+                startAutoSlide();
+            });
+        </script>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <span>A</span>CC
+                </div>
+                <p class="footer-about">
+                    The Arewa Crypto Community is empowering Northern Nigeria through blockchain education and
+                    innovation, creating opportunities in the Web3 economy.
+                </p>
+                <div class="footer-social">
+                    <a href="https://discord.gg/3pJxBJVWZ4" target="_blank" class="footer-social-link"><i
+                            class="fab fa-discord"></i></a>
+                    <a href="https://t.me/acccommunitychannel" target="_blank" class="footer-social-link"><i
+                            class="fab fa-telegram"></i></a>
+                    <a href="https://x.com/acc_community" target="_blank" class="footer-social-link"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">QUICK LINKS</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#mission">Our Mission</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#events">Events</a></li>
+                    <li><a href="index.html#join">Join Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">RESOURCES</h3>
+                <ul class="footer-links">
+                    <li><a href="pfp-maker.html">PFP Maker</a></li>
+                    <li><a href="#">ACC Learn Program</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 class="footer-title">CONTACT US</h3>
+                <ul class="footer-links">
+                    <li><a href="https://x.com/acc_community" target="_blank">Twitter</a></li>
+                    <li><a href="https://t.me/acccommunitychannel" target="_blank">Telegram</a></li>
+                    <li><a href="https://discord.gg/3pJxBJVWZ4" target="_blank">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AREWA CRYPTO COMMUNITY. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+    </script>
+</body>
+
+</html>
