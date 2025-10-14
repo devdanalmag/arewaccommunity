@@ -3,7 +3,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ success: false, error: 'Method Not Allowed' });
     }
 
-    const { email, course } = req.body;
+    const { name, email, state, devices, course, social, whatsapp } = req.body;
 
     try {
         const response = await fetch("https://api.brevo.com/v3/smtp/email", {
@@ -14,14 +14,14 @@ export default async function handler(req, res) {
                 "content-type": "application/json",
             },
             body: JSON.stringify({
-                sender: { name: "ACC LEARN PROGRAM", email: "acclearnprogram@gmail.com" }, // ← must be verified sender!
+                sender: { name: "ACC Learn Registration", email: "acclearnprogram@gmail.com" }, // ← must be verified sender!
                 to: [{ email: `${email}` }],
-                subject: "Approved Application Submission",
+                subject: "New Registration Submission",
                 htmlContent: `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>📝ACC Learn Program Teachers Application</title>
+    <title>📝 New ACC Learn Program Application</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -91,28 +91,53 @@ export default async function handler(req, res) {
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>ALP TEACHERS APPLICATION</h1>
+            <h1>NEW ACC LEARN APPLICATION</h1>
         </div>
         
+        <div class="content">
+
+                    <div class="data-row">
+                <div class="label">Full Name:</div>
+                <div class="value">${name}</div>
+            </div>
+
             <div class="data-row">
                 <div class="label">Email:</div>
                 <div class="value">${email}</div>
             </div>
-
-            
-            <div class="divider"></div>
             
             <div class="data-row">
-                <div class="label">Course To Teach:</div>
-                <div class="value" style="font-weight:500;">${course}</div>
+                <div class="label">State:</div>
+                <div class="value">${state}</div>
+            </div>
+            
+            <div class="data-row">
+                <div class="label">Devices:</div>
+                <div class="value">${Array.isArray(devices) ? devices.join(', ') : devices}</div>
             </div>
             
             <div class="divider"></div>
-            <div class="divider"></div>
+            
             <div class="data-row">
-                <b style="color:red;
-            font-weight: 600;
-            font-size: 15px;">Please Do Well To Reply With Your Scheme of work.</b>
+                <div class="label">Selected Course:</div>
+                <div class="value" style="font-weight:500;">${course}</div>
+            </div>
+            
+            <div class="data-row">
+                <div class="label">WhatsApp:</div>
+                <div class="value">${whatsapp}</div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="data-row" style="align-items: flex-start;">
+                <div class="label">Social Profiles:</div>
+                <div class="value">
+                    ${Array.isArray(social) ?
+                        social.map(s => `<div class="social-item">${s}</div>`).join('') :
+                        social}
+                </div>
+            </div>
         </div>
         
         <div class="footer">
