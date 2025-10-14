@@ -3,7 +3,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ success: false, error: 'Method Not Allowed' });
     }
 
-    const { email, state, devices, course, social, whatsapp } = req.body;
+    const { name, email, state, devices, course, social, whatsapp } = req.body;
 
     try {
         const response = await fetch("https://api.brevo.com/v3/smtp/email", {
@@ -95,6 +95,12 @@ export default async function handler(req, res) {
         </div>
         
         <div class="content">
+
+                    <div class="data-row">
+                <div class="label">Full Name:</div>
+                <div class="value">${name}</div>
+            </div>
+
             <div class="data-row">
                 <div class="label">Email:</div>
                 <div class="value">${email}</div>
