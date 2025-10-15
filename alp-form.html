@@ -450,7 +450,7 @@
         }
 
         function buildScriptUrl(data, callback) {
-            const baseUrl = 'https://script.google.com/macros/s/AKfycbxGkBwgGbNltJlZzLgiBvKZX_4bhmMaSrqVjGUmqlhdfPmr0lXaGva_rcGzixKxlPcvRQ/exec';
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbyam9OZ2iV-pIa2xXvZAjhMsEzpvyD2QPee0pa87A1t8NwEJCF1EM8Qc7h3Fwjd7JC5yA/exec';
             const params = new URLSearchParams();
 
             // Add callback parameter
@@ -525,13 +525,14 @@
 
         function validateForm() {
             const termsCheckbox = document.getElementById('termsCheckbox');
+            const name = document.getElementById('fname').value;
             const email = document.getElementById('email').value;
             const state = document.getElementById('state').value;
             const course = document.getElementById('course').value;
             const devices = Array.from(document.querySelectorAll('input[name="device"]:checked')).map(el => el.value);
             const whatsapp = document.getElementById('whatsapp').value;
 
-            if (!email || !state || !course || devices.length === 0 || !whatsapp || !termsCheckbox.checked) {
+            if (!name || !email || !state || !course || devices.length === 0 || !whatsapp || !termsCheckbox.checked) {
                 alert('Please fill all required fields and accept the Terms and Conditions');
                 return false;
             }
