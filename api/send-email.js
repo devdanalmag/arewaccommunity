@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>📝 New ACC Learn Program Application</title>
+    <title>📝 New ACC Learn Program Application (Batch - 2)</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -91,7 +91,7 @@ export default async function handler(req, res) {
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>NEW ACC LEARN APPLICATION</h1>
+            <h1>NEW ACC LEARNING PROGRAM (Batch - 2) APPLICATION</h1>
         </div>
         
         <div class="content">
