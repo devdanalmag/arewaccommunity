@@ -500,7 +500,10 @@
                         showSuccessPopup();
                         this.reset();
                     } else {
-                        throw new Error(emailResponse.error || 'Email submission failed');
+                        const errMsg = typeof emailResponse.error === 'object'
+                            ? JSON.stringify(emailResponse.error)
+                            : (emailResponse.error || 'Email submission failed');
+                        throw new Error(errMsg);
                     }
                 } finally {
                     loader.remove();
