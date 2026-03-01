@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -352,7 +353,7 @@
         </div>
     </footer>
     <script>
-checkdevices();
+        checkdevices();
 
         function checkdevices() {
             const devices = document.querySelectorAll('input[name="device"]:checked');
@@ -444,7 +445,7 @@ checkdevices();
         }
 
         function buildScriptUrl(data, callback) {
-            const baseUrl = 'https://script.google.com/macros/s/AKfycbxJPCseWPrsL1Fl7SFGClUNo0bzyZbxssss_dcZzeZz70cZTTPpoimzp5gmqjMV7LDOMQ/exec';
+            const baseUrl = 'https://script.google.com/macros/s/AKfycbxplCjPQDZdxia5jJQW_TmSUImjIf2XDhsR2CWUwfOeKGwXX0bNH2XWZPugIlz-7Advfg/exec';
             const params = new URLSearchParams();
 
             // Add callback parameter
