@@ -49,13 +49,20 @@
     <section class="registration">
         <div class="registration-container">
             <div class="registration-header">
-                <h2 class="section-title">ACC LEARN PROGRAM</h2>
+                <h2 class="section-title">ACC LEARN PROGRAM (Batch - 2)</h2>
                 <p class="section-subtitle">Join our Web3 education program and kickstart your journey into blockchain
                     technology</p>
             </div>
 
             <div class="registration-card">
                 <form id="academyForm">
+
+                    <!-- Email Address -->
+                    <div class="form-group">
+                        <label for="email">FULL NAME <b style="color: red;">*</b></label>
+                        <input type="fname" id="fname" class="form-control" required placeholder="Your Full Name">
+                    </div>
+
                     <!-- Email Address -->
                     <div class="form-group">
                         <label for="email">EMAIL ADDRESS <b style="color: red;">*</b></label>
@@ -362,8 +369,7 @@
             if (selectedDevices.includes('android') && selectedDevices.includes('pc')) {
                 document.getElementById('course').innerHTML = `
                     <option value="" disabled selected>Select your course</option>
-                    <option value="Basics in Artificial Intelligence (AI)">Basics in Artificial Intelligence (AI)</option>
-                    <option value="Token & NFT Development">Token & NFT Development</option>
+                    <option value="DEX Trading (Degen)">DEX Trading (Degen)</option>
                     <option value="Telegram Mini-App Development">Telegram Mini-App Development</option>
                     <option value="Graphics Design">Graphics Design</option>
                     <option value="Content Creation">Content Creation</option>
@@ -375,7 +381,7 @@
             else if (selectedDevices.includes('android')) {
                 document.getElementById('course').innerHTML = `
                     <option value="" disabled selected>Select your course</option>
-                    <option value="Basics in Artificial Intelligence (AI)">Basics in Artificial Intelligence (AI)</option>
+                    <option value="DEX Trading (Degen)">DEX Trading (Degen)</option>
                     <option value="Graphics Design">Graphics Design</option>
                     <option value="Content Creation">Content Creation</option>
                     <option value="Web3 Job Skills">Web3 Job Skills</option>
@@ -386,8 +392,7 @@
             else if (selectedDevices.includes('pc')) {
                 document.getElementById('course').innerHTML = `
                     <option value="" disabled selected>Select your course</option>
-                    <option value="Basics in Artificial Intelligence (AI)">Basics in Artificial Intelligence (AI)</option>
-                    <option value="Token & NFT Development">Token & NFT Development</option>
+                    <option value="DEX Trading (Degen)">DEX Trading (Degen)</option>
                     <option value="Telegram Mini-App Development">Telegram Mini-App Development</option>
                     <option value="Graphics Design">Graphics Design</option>
                     <option value="Content Creation">Content Creation</option>
@@ -534,6 +539,7 @@
         }
 
         function collectFormData() {
+            const name = document.getElementById('fname').value;
             const email = document.getElementById('email').value;
             const state = document.getElementById('state').value;
             const course = document.getElementById('course').value;
@@ -544,6 +550,7 @@
                 .map(el => `${el.placeholder}: ${el.value}`);
 
             return {
+                name,
                 email,
                 state,
                 course,
@@ -562,6 +569,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
+                    name: formData.name,
                     email: formData.email,
                     state: formData.state,
                     devices: formData.devices,
